@@ -1,3 +1,5 @@
+
+
 import java.util.*;
 
 public class test {
@@ -83,24 +85,41 @@ public class test {
 //        test t = new test();
 //        System.out.println(t.LastRemaining_Solution(9, 1));
 
-        ListNode a = new ListNode(0);
-        ListNode b = new ListNode(1);
-        ListNode c = new ListNode(0);
-        ListNode d = new ListNode(0);
-        ListNode e = new ListNode(0);
-        ListNode f = new ListNode(0);
-        a.next = b;
-        b.next = c;
-        c.next = d;
-        d.next = e;
-        e.next = f;
-        f.next = null;
+//        ListNode a = new ListNode(0);
+//        ListNode b = new ListNode(1);
+//        ListNode c = new ListNode(0);
+//        ListNode d = new ListNode(0);
+//        ListNode e = new ListNode(0);
+//        ListNode f = new ListNode(0);
+//        a.next = b;
+//        b.next = c;
+//        c.next = d;
+//        d.next = e;
+//        e.next = f;
+//        f.next = null;
+//
+//        ListNode r = deleteDuplication(a);
+//        while (r != null) {
+//            System.out.println(r.val);
+//            r = r.next;
+//        }
 
-        ListNode r = deleteDuplication(a);
-        while (r != null) {
-            System.out.println(r.val);
-            r = r.next;
-        }
+        Integer [] array = new Integer []{1,2,4,7,11,15};
+
+        Arrays.sort(array);
+        System.out.println(Arrays.toString(array));
+
+        Comparator<Integer> cmp = new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o2-o1;
+            }
+        };
+
+        Arrays.sort(array, cmp);
+
+        System.out.println(Arrays.toString(array));
+
 
 
     }
@@ -342,21 +361,36 @@ public class test {
             currentLayerNo = layerNo.poll();
             currentNode = q.poll();
             if (!map.containsKey(currentLayerNo)) {
-                map.put(currentLayerNo, new ArrayList<>());
+                map.put(currentLayerNo, new ArrayList<Integer>());
             }
             map.get(currentLayerNo).add(currentNode.val);
 
-            if(currentNode.left!=null){
+            if (currentNode.left != null) {
                 q.add(currentNode.left);
-                layerNo.add(currentLayerNo+1);
+                layerNo.add(currentLayerNo + 1);
             }
-            if(currentNode.right!=null){
+            if (currentNode.right != null) {
                 q.add(currentNode.right);
-                layerNo.add(currentLayerNo+1);
+                layerNo.add(currentLayerNo + 1);
+            }
+        }
+        ArrayList<Integer> tmp, tmp2 = null;
+
+        for (int i = 0; ; ++i) {
+            if (!map.containsKey(i)) return result;
+            else {
+                if (i % 2 == 0) result.add(map.get(i));
+                else {
+                    tmp = new ArrayList<Integer>();
+                    tmp2 = map.get(i);
+                    for (int j = tmp2.size() - 1; j >= 0; --j) {
+                        tmp.add(tmp2.get(j));
+                    }
+                    result.add(tmp);
+                }
             }
 
         }
-
 
 
     }
@@ -390,6 +424,157 @@ public class test {
         }
 
 
+    }
+
+
+    TreeNode KthNode(TreeNode pRoot, int k) {
+        if (k <= 0)
+            return null;
+
+        Stack<TreeNode> nodeStack = new Stack<>();
+        Stack<Integer> popTime = new Stack<>();
+        TreeNode node = null;
+        int poptime = 0;
+        nodeStack.add(pRoot);
+        popTime.add(0);
+        int num = 0;
+        while (!nodeStack.isEmpty()) {
+            node = nodeStack.pop();
+            poptime = popTime.pop();
+            poptime++;
+            if (poptime == 2) {
+                num++;
+                if (num == k) return node;
+                if (node.right != null) {
+                    nodeStack.add(node.right);
+                    popTime.add(0);
+                }
+
+            } else {
+                nodeStack.add(node);
+                popTime.add(poptime);
+                if (node.left != null) {
+                    nodeStack.add(node.left);
+                    popTime.add(0);
+                }
+
+            }
+        }
+        return null;
+    }
+
+    static int currentIdx = 0;
+
+    static void midOrder(TreeNode pRoot, int k) {
+        if (pRoot == null) return;
+        if (pRoot.left != null) midOrder(pRoot.left, k);
+    }
+
+
+    // 倒数第二道题
+    private class Point {
+        int x;
+        int y;
+
+        Point(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+    }
+
+    public boolean hasPath(char[] matrix, int rows, int cols, char[] str) {
+
+        if (matrix.length != rows * cols) return false;
+        if (str.length == 0) return false;
+        char[][] allChars = new char[rows][cols];
+        boolean[][] visited = new boolean[rows][cols];
+        String s = String.valueOf(str);
+        int idx = 0;
+        Stack<Point> startPoints = new Stack<>();
+        Point tmp = null;
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                allChars[i][j] = matrix[idx];
+                if (allChars[i][j] == str[0]) startPoints.add(new Point(i, j));
+                idx++;
+            }
+        }
+        while (!startPoints.empty()) {
+            tmp = startPoints.pop();
+            if (hasPath(allChars, visited, tmp, s))
+                return true;
+        }
+        return false;
+    }
+
+
+    public boolean hasPath(char[][] allChars, boolean[][] visited, Point startPoint, String str) {
+        if (str.equals(""))
+            return true;
+        int rows = allChars.length;
+        int cols = allChars[0].length;
+        int x = startPoint.x;
+        int y = startPoint.y;
+        if (x >= 0 && x < rows && y >= 0 && y < cols && !visited[x][y] && allChars[x][y] == str.charAt(0)) {
+            visited[x][y] = true;
+            return hasPath(allChars, visited, new Point(x - 1, y), str.substring(1)) || hasPath(allChars, visited, new Point(x + 1, y), str.substring(1)) || hasPath(allChars, visited, new Point(x, y - 1), str.substring(1)) || hasPath(allChars, visited, new Point(x, y + 1), str.substring(1));
+        } else {
+            return false;
+        }
+    }
+
+    int result = 0;
+
+    public int movingCount(int threshold, int rows, int cols) {
+        if (threshold < 0) return 0;
+        boolean[][] visited = new boolean[rows][cols];
+        Point p = new Point(0, 0);
+        if (threshold == 0) return 1;
+        isOk(threshold, visited, 0, 0);
+        return this.result;
+    }
+
+    public boolean isOk(int threshold, boolean[][] visited, int x, int y) {
+        int rows = visited.length;
+        int cols = visited[0].length;
+
+        if (x >= 0 && x < rows && y >= 0 && y < cols && digitSum(x) + digitSum(y) <= threshold && !visited[x][y]) {
+            visited[x][y] = true;
+            result++;
+            return isOk(threshold, visited, x - 1, y) || isOk(threshold, visited, x + 1, y) || isOk(threshold, visited, x, y - 1) || isOk(threshold, visited, x, y + 1);
+        }
+        return false;
+    }
+
+    public static int digitSum(int num) {
+        int tmp = num % 10;
+        while (num / 10 != 0) {
+            num = num / 10;
+            tmp += num % 10;
+        }
+        return tmp;
+    }
+
+    public static ArrayList<Integer> FindNumbersWithSum(int[] array, int sum) {
+        ArrayList<Integer> result = new ArrayList<>();
+        if (array.length < 2) return result;
+        int i = 0;
+        int j = array.length - 1;
+        int tmp = 0;
+        while (i < j) {
+            tmp = array[i] + array[j];
+            System.out.println(tmp);
+            if (tmp == sum) {
+                result.add(array[i]);
+                result.add(array[j]);
+                return result;
+            } else if (tmp > sum) {
+                --j;
+            } else {
+                ++i;
+            }
+        }
+        return result;
     }
 
 

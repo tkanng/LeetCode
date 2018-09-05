@@ -33,7 +33,6 @@ public class DUI {
 
         System.out.println();
         while (!q2.isEmpty()) {
-
             System.out.print(q2.poll() + ",");
         }
 
