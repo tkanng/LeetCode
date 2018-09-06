@@ -1,5 +1,9 @@
 
 
+import sun.awt.geom.AreaOp;
+
+import javax.sound.midi.Soundbank;
+import java.awt.*;
 import java.util.*;
 
 public class test {
@@ -104,25 +108,32 @@ public class test {
 //            r = r.next;
 //        }
 
-        Integer [] array = new Integer []{1,2,4,7,11,15};
-
-        Arrays.sort(array);
+//        Integer[] array = new Integer[]{1, 2, 4, 7, 11, 15};
+//
+//        Arrays.sort(array);
+//        System.out.println(Arrays.toString(array));
+//
+//        Comparator<Integer> cmp = new Comparator<Integer>() {
+//            @Override
+//            public int compare(Integer o1, Integer o2) {
+//                return o2 - o1;
+//            }
+//        };
+//
+//        Arrays.sort(array, cmp);
+//
+//        System.out.println(Arrays.toString(array));
+        int[] array = new int[]{7, 11, 15, 1, 2, 4,};
         System.out.println(Arrays.toString(array));
-
-        Comparator<Integer> cmp = new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return o2-o1;
-            }
-        };
-
-        Arrays.sort(array, cmp);
-
+        changeArray(array);
         System.out.println(Arrays.toString(array));
-
-
-
     }
+
+    public static void changeArray(int [] array){
+        array[0] = 1;
+    }
+
+
 
 
     public static boolean isMatch(String text, String pattern) {
@@ -576,6 +587,108 @@ public class test {
         }
         return result;
     }
+
+
+    /**
+     * @param n
+     * @param x [1,9]
+     * @return
+     */
+    public int NumberOfXBetween1AndN_Solution(int n, int x) {
+        if (n < 0 || x < 1 || x > 9)
+            return 0;
+        int high, low, curr, tmp, i = 1;
+        high = n;
+        int total = 0;
+        while (high != 0) {
+            high = n / (int) Math.pow(10, i);// 获取第i位的高位
+            tmp = n % (int) Math.pow(10, i);
+            curr = tmp / (int) Math.pow(10, i - 1);// 获取第i位
+            low = tmp % (int) Math.pow(10, i - 1);// 获取第i位的低位
+            if (curr == x) {
+                total += high * (int) Math.pow(10, i - 1) + low + 1;
+            } else if (curr < x) {
+                total += high * (int) Math.pow(10, i - 1);
+            } else {
+                total += (high + 1) * (int) Math.pow(10, i - 1);
+            }
+            i++;
+        }
+        return total;
+    }
+
+
+    public static int RectCover(int target) {
+        if (target <= 0)
+            return 0;
+        if (target == 1)
+            return 1;
+        if (target == 2)
+            return 2;
+        // 自底向上的动态规划中，一定要排除掉一些特殊情况啊！
+        int[] result = new int[target + 1];
+        result[1] = 1;
+        result[2] = 2;
+        for (int i = 3; i < target + 1; ++i) {
+            result[i] = result[i - 1] + result[i - 2];
+        }
+        return result[target];
+
+    }
+
+
+    public static int minNumberInRotateArray(int[] array) {
+        if (array.length == 0)
+            return 0;
+        int high = array.length - 1;
+        int low = 0;
+        int mid = (high + low) / 2;
+
+
+        while (high != low) {
+            if (array[mid] > array[high]) {
+                low = mid;
+            } else {
+                high = mid;
+            }
+            mid = (low + high) / 2;
+            if (mid == low) {
+                return array[high] > array[low] ? array[low] : array[high];
+            }
+        }
+        return array[high];
+    }
+
+
+    public TreeNode reConstructBinaryTree(int[] pre, int[] in) {
+        if (pre.length == 0 || in.length == 0)
+            return null;
+        if (pre.length != in.length)
+            return null;
+        return reConstructBinaryTreeCore(pre, 0, pre.length - 1, in, 0, in.length-1);
+    }
+
+    public TreeNode reConstructBinaryTreeCore(int[] pre, int pre_start, int pre_end, int[] in, int in_start, int in_end) {
+        if(pre_end-pre_start <0 || in_end-in_start<0 || pre_end>pre.length-1|| in_end>in.length-1)
+            return null;
+        if(pre_end == pre_start)
+            return new TreeNode(pre[pre_start]);
+        TreeNode root  = new TreeNode(pre[pre_start]);
+        int rootIdxOfIn =-1;
+        for(int i=in_start;i<=in_end;++i){
+            if(in[i]==root.val){
+                rootIdxOfIn = i;
+                break;
+            }
+        }
+        // don't find root.val in Array in
+        if(rootIdxOfIn<0) return null;
+        root.left = reConstructBinaryTreeCore(pre, pre_start+1, pre_start+rootIdxOfIn-in_start, in, in_start, rootIdxOfIn-1);
+        root.right = reConstructBinaryTreeCore(pre, pre_start+rootIdxOfIn-in_start+1, pre_end, in, rootIdxOfIn+1, in_end);
+        return root;
+    }
+
+
 
 
 }
