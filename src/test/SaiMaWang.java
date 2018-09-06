@@ -76,7 +76,7 @@ class Mfain {
 		int len = sc.nextInt();
 		int[] spot = new int[n];
 		for(int i=0;i<n;i++)
-			spot[i] = sc.nextInt();
+			spot[i] = sc.nextInt(); // get input content
 		Arrays.sort(spot);
 		double maxdistance = Double.MIN_VALUE;
 		for(int i=1;i<n;i++){
@@ -96,5 +96,26 @@ class Mfain {
 		}
 	}
 
+}
+
+
+class Main2 {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		Main2 m = new Main2();
+		while(sc.hasNext()) {
+			int num = sc.nextInt();
+			for(int i=0; i<num; i++) {
+				System.out.println(m.Fan(sc.nextInt()));
+			}
+		}
+
+	}
+	public int Fan(int n) {
+		if(n == 1) return 0;
+		if(n == 2) return 1;
+		if(n == 3) return 2;
+		return Fan(n-1)+Fan(n-2);
+	}
 }
 
