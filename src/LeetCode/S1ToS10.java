@@ -1,3 +1,6 @@
+import org.omg.PortableInterceptor.INACTIVE;
+
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -6,14 +9,7 @@ import java.util.Set;
 public class S1ToS10 {
 
     public static void main(String[] args) {
-//        int rollMeOver = Integer.MAX_VALUE + 1;
-//        System.out.println(Integer.MAX_VALUE);
-//        System.out.println(rollMeOver);
-//        System.out.println(Integer.MAX_VALUE + 1 > Integer.MAX_VALUE);
-//        System.out.println(Integer.MIN_VALUE);
-//        System.out.println(Integer.MIN_VALUE - 1);
-        System.out.println(myAtoi("2147483648"));
-        System.out.println(Integer.MIN_VALUE);
+        System.out.println(-11 % 10);
     }
 
     //s3:Longest Substring Without Repeating Characters
@@ -33,7 +29,6 @@ public class S1ToS10 {
         return ans;
     }
 
-    //S3
     public int lengthOfLongestSubstring2(String s) {
         int n = s.length(), ans = 0;
         Map<Character, Integer> map = new HashMap<>(); // current index of character
@@ -48,14 +43,33 @@ public class S1ToS10 {
         return ans;
     }
 
-    // S4 不会
+    public int lengthOfLongestSubstring3(String s) {
+        HashSet<Character> windowSet = new HashSet<>();
+        int i = 0, j = 0;
+        int n = s.length();
+        int ans = 0;
+        while (i < n && j < n) {
+
+            if (windowSet.contains(s.charAt(j))) {
+                windowSet.remove(s.charAt(i));
+                ++i;
+            } else {
+                windowSet.add(s.charAt(j));
+                ans = Math.max(j - i + 1, ans);
+                ++j;
+            }
+
+        }
+        return ans;
+    }
+
+
+    // S4
 //    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
 //        int m = nums1.length;
 //        int n = nums2.length;
 //
 //    }
-
-
     // S5 Dynamic Programming
     public String longestPalindrome(String s) {
         int n = s.length();
@@ -63,13 +77,7 @@ public class S1ToS10 {
         boolean[][] dp = new boolean[n][n];
         for (int i = n - 1; i >= 0; i--) {
             for (int j = i; j < n; j++) {
-                if (i == j)
-                    dp[i][j] = true;
-                else if (i == j - 1)
-                    dp[i][j] = s.charAt(i) == s.charAt(j);
-                else {
-                    dp[i][j] = s.charAt(i) == s.charAt(j) && (dp[i + 1][j - 1]);
-                }
+                dp[i][j] = s.charAt(i) == s.charAt(j) && (j - i < 3 || dp[i + 1][j - 1]);
                 if (dp[i][j] && (res == null || j - i + 1 > res.length())) {
                     res = s.substring(i, j + 1);
                 }
@@ -79,34 +87,43 @@ public class S1ToS10 {
     }
 
 
-    // S6 不会
+    // S7 Reverse Integer
 
 
-    // S7 reverse integer.  检查整数溢出情况！
-
-    public static int reverse(int x) {
+    public int reverse(int x) {
         int result = 0;
-        int dig = 0;
-        int temp = 0;
-        while (x != 0) {
-            dig = x % 10;
-            temp = dig + result * 10; // 正数溢出，会变为负数;负数溢出，会变为正数
-            if ((temp - dig) / 10 != result) {
-                return 0;
+        int tmp = x;
+        int tmpResult = 0;
+        if (x >= 0) {
+            while (tmp != 0) {
+                tmpResult = result; // save last result!!!
+                result = result * 10;
+                if (result / 10 != tmpResult) return 0; // determine if result overflows!!
+                result = result + tmp % 10;
+                tmp = tmp / 10;
             }
-            result = temp;
-            x = x / 10;
+        } else {
+            tmp = 0 - x;
+            while (tmp != 0) {
+                tmpResult = result;
+                result = result * 10;
+                if (result / 10 != tmpResult) return 0;
+                result = result - tmp % 10;
+                tmp = tmp / 10;
+            }
         }
         return result;
     }
 
-    // S8: String to Integer (atoi)
 
+    // S8
+    // 整数溢出情况，标准解法！！！
     public static int myAtoi(String str) {
         int len = str.length();
         int i = 0;
         int flag = 1;
-        long tmp = 0l, result = 0l;
+        int tmp = 0, result = 0;
+        int tmpResult = 0;
         for (i = 0; i < len; ++i) {
             if (str.charAt(i) != ' ')
                 break;
@@ -123,57 +140,30 @@ public class S1ToS10 {
         if (flag == 1) {
             for (; i < str.length(); ++i) {
                 if ((str.charAt(i) < '0') || (str.charAt(i) > '9')) break;
-                result = tmp * 10 + (str.charAt(i) - '0');
-
-                if (result > Integer.MAX_VALUE) return Integer.MAX_VALUE;
+                // 当为正数时，判断与Integer.MAX_VALUE/10的大小关系
+                if (tmp > Integer.MAX_VALUE / 10 || (tmp == Integer.MAX_VALUE / 10 && (str.charAt(i) - '0') > Integer.MAX_VALUE % 10))
+                    return Integer.MAX_VALUE;
+                result = tmp * 10 + str.charAt(i) - '0';
                 tmp = result;
             }
         } else {
             for (; i < str.length(); ++i) {
                 if ((str.charAt(i) < '0') || (str.charAt(i) > '9')) break;
-                result = tmp * 10 - (str.charAt(i) - '0');
-                if (result < Integer.MIN_VALUE) return Integer.MIN_VALUE;
+                //当为负数时，判断与Integer.MIN_VALUE/10的大小关系！
+                if (tmp < Integer.MIN_VALUE / 10 || (tmp == Integer.MIN_VALUE / 10 && ('0' - str.charAt(i)) < Integer.MIN_VALUE % 10))
+                    return Integer.MIN_VALUE;
+                result = tmp * 10 + '0' - str.charAt(i);
                 tmp = result;
             }
         }
-        return (int) result;
+        return result;
     }
 
 
-    // S9
-    public boolean isPalindrome(int x) {
-        if (x < 0) return false;
-        String s = String.valueOf(x);
-        int len = s.length();
-        int low = 0;
-        int high = s.length() - 1;
-        if (len % 2 == 0) {
-            //even
-            for (int i = 0; i < len / 2; ++i) {
-                if (s.charAt(low) != s.charAt(high))
-                    return false;
-                ++low;
-                --high;
-            }
-            return true;
-        } else {
-            //odd
-            for (int i = 0; i < len / 2; ++i) {
-                if (s.charAt(low) != s.charAt(high))
-                    return false;
-                ++low;
-                --high;
-            }
-            return true;
-        }
+    public boolean isMatch(String s, String p) {
+
+
+        return  false;
     }
-
-
-
-
-
-
-
-
 
 }
