@@ -1,10 +1,11 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 public class S11TOS20 {
-
     public static void main(String[] args) {
-
-        System.out.println(threeSum1(new int[]{-1, 0, 1, 2, -1, -4}, 0));
+        System.out.println(letterCombinations("23"));
     }
 
     // S11 Brute Force
@@ -25,59 +26,191 @@ public class S11TOS20 {
     // S11 双指针法与证明：https://leetcode.com/problems/container-with-most-water/discuss/6099/yet-another-way-to-see-what-happens-in-the-on-algorithm/174248
 
 
-    // S15  3 sum
-    public static List<List<Integer>> threeSum1(int[] nums, int x) {
-        Arrays.sort(nums);
-        List<List<Integer>> ans = new ArrayList<>(); // 初始化操作！
-        HashSet<String> stringHashSet = new HashSet<>();
+    // S15 ThreeSum
 
-        if (nums.length < 3) return ans;
-        int j, k, delta;
-        for (int i = 0; i < nums.length - 2; ++i) {
-            j = i + 1;
-            k = nums.length - 1;
-            delta = x - nums[i];
-            while (j < k) {
-                if (nums[j] + nums[k] == delta) {
-                    stringHashSet.add(nums[i] + "_" + nums[j] + "_" + nums[k]);
-                    ++j;
-                    --k;
-                } else if (nums[j] + nums[k] > delta) {
-                    --k;
-                } else {
-                    ++j;
+    public List<List<Integer>> threeSum(int[] nums) {
+        return threeSum(nums, 0);
+    }
+
+    public List<List<Integer>> threeSum(int[] nums, int lo, int hi, int target) {
+        Arrays.sort(nums);
+        List<List<Integer>> ans = new LinkedList<>();
+        int len = hi;
+        int tmpSum = 0;
+        int j, k;
+
+        for (int i = lo; i < len - 2; ++i) {
+            if (i == lo || nums[i - 1] != nums[i]) {
+                j = i + 1;
+                k = len - 1;
+                while (j < k) {
+                    tmpSum = nums[i] + nums[j] + nums[k];
+                    if (tmpSum == target) {
+                        ans.add(Arrays.asList(nums[i], nums[j], nums[k]));
+                        while (j < k && nums[j + 1] == nums[j]) ++j;
+                        while (j < k && nums[k - 1] == nums[k]) --k;
+                        ++j; // 不要忘记这里自加1
+                        --k;
+                    } else if (tmpSum < target) {
+                        ++j;
+                    } else {
+                        --k;
+                    }
                 }
             }
         }
-        for (String s : stringHashSet) {
-            ans.add(Arrays.asList(Integer.parseInt(s.split("_")[0]), Integer.parseInt(s.split("_")[1]), Integer.parseInt(s.split("_")[2])));
+        return ans;
+    }
+
+    public List<List<Integer>> threeSum(int[] nums, int target) {
+        Arrays.sort(nums);
+        List<List<Integer>> ans = new LinkedList<>();
+        int len = nums.length;
+        int tmpSum = 0;
+        int j, k;
+
+        for (int i = 0; i < len - 2; ++i) {
+            if (i == 0 || nums[i - 1] != nums[i]) {
+                j = i + 1;
+                k = len - 1;
+                while (j < k) {
+                    tmpSum = nums[i] + nums[j] + nums[k];
+                    if (tmpSum == target) {
+                        ans.add(Arrays.asList(nums[i], nums[j], nums[k]));
+                        while (j < k && nums[j + 1] == nums[j]) ++j;
+                        while (j < k && nums[k - 1] == nums[k]) --k;
+                        ++j; // 不要忘记这里自加1
+                        --k;
+                    } else if (tmpSum < target) {
+                        ++j;
+                    } else {
+                        --k;
+                    }
+                }
+            }
+        }
+        return ans;
+    }
+    // S16. 3 sum closest
+
+    public int threeSumClosest(int[] nums, int target) {
+        Arrays.sort(nums);
+        int len = nums.length;
+        int delta = Integer.MAX_VALUE;
+        int ans = 0;
+        int tmpSum = 0;
+        int j, k;
+
+        for (int i = 0; i < len - 2; ++i) {
+            if (i == 0 || nums[i - 1] != nums[i]) {
+                j = i + 1;
+                k = len - 1;
+                while (j < k) {
+                    tmpSum = nums[i] + nums[j] + nums[k];
+                    if (tmpSum == target) return target;
+                    if (tmpSum > target) {
+                        if (tmpSum - target < delta) {
+                            ans = tmpSum;
+                            delta = tmpSum - target;
+                        }
+                        --k;
+                    } else {
+                        if (target - tmpSum < delta) {
+                            ans = tmpSum;
+                            delta = target - tmpSum;
+                        }
+                        ++j;
+
+                    }
+                }
+
+            }
         }
         return ans;
     }
 
 
-    public List<List<Integer>> threeSum(int[] num) {
-        Arrays.sort(num);
-        List<List<Integer>> res = new LinkedList<>();
-        for (int i = 0; i < num.length - 2; i++) {
-            if (i == 0 || (i > 0 && num[i] != num[i - 1])) {
-                // 这里的条件限制目的：找到有序序列中值为num[i]的第一个序号。如：-1-100111,那么只有下标为：0,2,4才会进入这个循环
-                int lo = i + 1, hi = num.length - 1, sum = 0 - num[i];
-                while (lo < hi) {
-                    if (num[lo] + num[hi] == sum) {
-                        res.add(Arrays.asList(num[i], num[lo], num[hi]));
-                        while (lo < hi && num[lo] == num[lo + 1]) lo++;
-                        while (lo < hi && num[hi] == num[hi - 1]) hi--;
-                        lo++;
-                        hi--;
-                    } else if (num[lo] + num[hi] < sum) lo++;
-                    else hi--;
-                }
-            }
-
-        }
-        return res;
+    // S17  回溯法
+    public static List<String> letterCombinations(String digits) {
+        HashMap<Character, String> map = new HashMap<>();
+        map.put('2', "abc");
+        map.put('3', "def");
+        map.put('4', "ghi");
+        map.put('5', "jkl");
+        map.put('6', "mno");
+        map.put('7', "pqrs");
+        map.put('8', "tuv");
+        map.put('9', "wxyz");
+        List<String> ans = new LinkedList<>();
+        if (digits.length() == 0)
+            return ans;// 一定记得排除掉异常输入，如输入为空字符串等情况
+        letterComb("", digits, ans, map);
+        return ans;
     }
+
+    public static void letterComb(String prefix, String digits, List<String> ans, HashMap<Character, String> map) {
+        if (digits.length() == 0) {
+            ans.add(prefix);
+            return;
+        }
+        char ch = digits.charAt(0);
+        for (char c : map.get(ch).toCharArray()) {
+            letterComb(prefix + c, digits.substring(1), ans, map);
+        }
+    }
+
+    // S18 four sum
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        Arrays.sort(nums);
+        int len = nums.length;
+        List<List<Integer>> ans = new LinkedList<>();
+        List<List<Integer>> threeSumResult = new LinkedList<>();
+        for (int i = 0; i < len - 3; ++i) {
+            if (i == 0 || nums[i - 1] != nums[i]) {
+                threeSumResult = threeSum(nums, i + 1, nums.length, target - nums[i]);
+                for (List<Integer> item : threeSumResult) {
+                    ans.add(Arrays.asList(nums[i], item.get(0), item.get(1), item.get(2)));
+                }
+
+            }
+        }
+        return ans;
+    }
+
+    // S19 Remove Nth Node From End of List
+
+
+    // Definition for singly-linked list.
+    public class ListNode {
+        int val;
+        ListNode next;
+
+        ListNode(int x) {
+            val = x;
+        }
+    }
+
+    //S19
+    public ListNode removeNthFromEnd(ListNode head, int n) {
+        ListNode back = head;
+        ListNode front = head;
+        for (int i = 0; i < n; ++i) {
+            front = front.next;
+        }
+        if (front == null) {
+            return head.next; // 特殊情况判断：当需要删除链表中的第一个节点时
+        } else {
+            while (front.next != null) {
+                front = front.next;
+                back = back.next;
+            }
+            ListNode deleteNode = back.next;
+            back.next = deleteNode.next;
+            return head;
+        }
+    }
+
+
 
 
 }
