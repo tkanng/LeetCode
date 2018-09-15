@@ -18,7 +18,30 @@ public class RegularExpressionMatching {
     }
 
     */
+    public boolean isMatch(String text, String pattern) {
+        // 处理输入为空的情况
+        if (pattern.isEmpty()) return text.isEmpty();
+        // 处理输入为空的情况
+        if (text.isEmpty()) {
+            if (pattern.length() % 2 != 0) {
+                return false;
+            }
+            int i = 1;
+            while (i < pattern.length()) {
+                if (pattern.charAt(i) != '*') return false;
+                i += 2;
+            }
+            return true;
+        }
+        boolean first_match = (pattern.charAt(0) == text.charAt(0) || pattern.charAt(0) == '.');
 
+        if (pattern.length() >= 2 && pattern.charAt(1) == '*') {
+            return (isMatch(text, pattern.substring(2)) ||
+                    (first_match && isMatch(text.substring(1), pattern)));
+        } else {
+            return first_match && isMatch(text.substring(1), pattern.substring(1));
+        }
+    }
 
     // 自顶向下,备忘录法
     enum Result {

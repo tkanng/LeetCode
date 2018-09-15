@@ -102,6 +102,7 @@ class Recursive {
         }
 
         if (pattern.charAt(0) == '*') {
+            // 两种情况：1. 利用'*'进行匹配 2. 不利用'*'进行匹配
             return isMatch(text.substring(1), pattern) || isMatch(text, pattern.substring(1));
         }
         boolean first_match = (pattern.charAt(0) == text.charAt(0) || pattern.charAt(0) == '?');

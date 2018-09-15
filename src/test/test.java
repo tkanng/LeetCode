@@ -1,9 +1,5 @@
 
 
-import sun.awt.geom.AreaOp;
-
-import javax.sound.midi.Soundbank;
-import java.awt.*;
 import java.util.*;
 
 public class test {
@@ -129,11 +125,9 @@ public class test {
         System.out.println(Arrays.toString(array));
     }
 
-    public static void changeArray(int [] array){
+    public static void changeArray(int[] array) {
         array[0] = 1;
     }
-
-
 
 
     public static boolean isMatch(String text, String pattern) {
@@ -665,30 +659,106 @@ public class test {
             return null;
         if (pre.length != in.length)
             return null;
-        return reConstructBinaryTreeCore(pre, 0, pre.length - 1, in, 0, in.length-1);
+        return reConstructBinaryTreeCore(pre, 0, pre.length - 1, in, 0, in.length - 1);
     }
 
     public TreeNode reConstructBinaryTreeCore(int[] pre, int pre_start, int pre_end, int[] in, int in_start, int in_end) {
-        if(pre_end-pre_start <0 || in_end-in_start<0 || pre_end>pre.length-1|| in_end>in.length-1)
+        if (pre_end - pre_start < 0 || in_end - in_start < 0 || pre_end > pre.length - 1 || in_end > in.length - 1)
             return null;
-        if(pre_end == pre_start)
+        if (pre_end == pre_start)
             return new TreeNode(pre[pre_start]);
-        TreeNode root  = new TreeNode(pre[pre_start]);
-        int rootIdxOfIn =-1;
-        for(int i=in_start;i<=in_end;++i){
-            if(in[i]==root.val){
+        TreeNode root = new TreeNode(pre[pre_start]);
+        int rootIdxOfIn = -1;
+        for (int i = in_start; i <= in_end; ++i) {
+            if (in[i] == root.val) {
                 rootIdxOfIn = i;
                 break;
             }
         }
         // don't find root.val in Array in
-        if(rootIdxOfIn<0) return null;
-        root.left = reConstructBinaryTreeCore(pre, pre_start+1, pre_start+rootIdxOfIn-in_start, in, in_start, rootIdxOfIn-1);
-        root.right = reConstructBinaryTreeCore(pre, pre_start+rootIdxOfIn-in_start+1, pre_end, in, rootIdxOfIn+1, in_end);
+        if (rootIdxOfIn < 0) return null;
+        root.left = reConstructBinaryTreeCore(pre, pre_start + 1, pre_start + rootIdxOfIn - in_start, in, in_start, rootIdxOfIn - 1);
+        root.right = reConstructBinaryTreeCore(pre, pre_start + rootIdxOfIn - in_start + 1, pre_end, in, rootIdxOfIn + 1, in_end);
         return root;
     }
 
 
+    public ArrayList<ArrayList<Integer>> FindPath(TreeNode root, int target) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        ArrayList<TreeNode> paths = new ArrayList<>();
+        // 保证root 一定不为null
+        FindPath(root, target, res, paths);
+        res.sort(new Comparator<ArrayList<Integer>>() {
+            @Override
+            public int compare(ArrayList<Integer> o1, ArrayList<Integer> o2) {
+                return o2.size() - o1.size();
+            }
+        });
+        return res;
+    }
+
+    public static void FindPath(TreeNode root, int target, ArrayList<ArrayList<Integer>> res, ArrayList<TreeNode> paths) {
+        if (root == null)
+            return;
+        if (root.left == null && root.right == null) {
+            // 判断paths中节点与当前节点val和，是否等于target
+            int tmp = root.val;
+            for (TreeNode node : paths) {
+                tmp += node.val;
+            }
+            if (tmp == target) {
+                ArrayList<Integer> oneResult = new ArrayList<>();
+                for (TreeNode node : paths) {
+                    oneResult.add(node.val);
+                }
+                oneResult.add(root.val);
+                res.add(oneResult);
+            }
+            return;
+        }
+        paths.add(root);
+        if (root.left != null) {
+            FindPath(root.left, target, res, paths);
+        }
+        if (root.right != null) {
+            FindPath(root.right, target, res, paths);
+        }
+        paths.remove(paths.size() - 1); // 深度遍历后，需要回退一格！
+    }
 
 
+    public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
+        ArrayList<Integer> res = new ArrayList<>();
+        printListFromTailToHead(listNode, res);
+        return res;
+    }
+
+    public static void printListFromTailToHead(ListNode node, ArrayList<Integer> res){
+        if(node==null) return;
+        if(node.next ==null){
+            res.add(node.val);
+            return;
+        }
+        printListFromTailToHead(node.next, res);
+        res.add(node.val);
+    }
+    //  反转链表
+    public ListNode ReverseList(ListNode first){
+        if(first ==null) // 链表为空
+            return null;
+        ListNode p = first;
+        ListNode q = first.next;
+        p.next = null;
+        if(q==null) // 链表只有一个元素
+            return p;
+        while (q.next!=null){
+            ListNode r = q.next;
+            q.next = p;
+            p = q;
+            q=r;
+        }
+        // q 是最后一个节点，p是倒数第二个节点
+        q.next = p;
+        return q;
+    }
 }

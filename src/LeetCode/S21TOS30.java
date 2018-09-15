@@ -174,8 +174,6 @@ public class S21TOS30 {
     }
 
     //S28
-
-
     public int strStr(String haystack, String needle) {
         if (needle.equals(""))
             return 0;
@@ -189,6 +187,8 @@ public class S21TOS30 {
         }
         return -1;
     }
+
+
 
 
 }
