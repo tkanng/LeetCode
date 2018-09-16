@@ -45,7 +45,7 @@ public class SearchInRotateArray {
             // 对于递增序列
             return 0;
         if (nums[nums.length - 1] < nums[nums.length - 2])
-            return nums.length - 1;
+            return nums.length - 1; // 最小元素是最后一个元素的情况
 
         int lo = 0;
         int hi = nums.length - 1;

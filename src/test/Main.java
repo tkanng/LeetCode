@@ -236,48 +236,91 @@
 //        }
 //        return ans;
 //    }
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Scanner;
+
+//[1531324800][login],{"roleid":"1"}
+//[1531364400][login],{"roleid":"2"}
+//[1531368000][logout],{"roleid":"1"}
+//[1531371600][other],{"roldid":"2"}
+//[1531371600][logout],{"roleid":"2"}
+//[1531371540][login],{"roleid":"3"}
+//[1531375200][logout],{"roleid":"3"}
+//
+
+import java.util.*;
 
 public class Main {
 
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int M = sc.nextInt();
-        ArrayList<ArrayList<Integer>> cos = new ArrayList<>();
-        ArrayList<Integer> a = new ArrayList<>();
-        for(int i=0;i<M;++i){
-            a = new ArrayList<>();
-            a.add(sc.nextInt());
-            a.add(sc.nextInt());
-            a.add(sc.nextInt());
-            cos.add(a);
+        ArrayList<Long> inTime = new ArrayList<>();
+        HashMap<Long, String> inToId = new HashMap<>();
+        String line = "";
+        HashMap<String, Long> idToOut = new HashMap<>();
+        long time = 0L;
+        long out = 0L;
+        String id = "";
+        String type = "";
+        ArrayList<String > ans = new ArrayList<>();
+        double maxMatchRate = 0.0;
+        while (sc.hasNextLine()) {
+            line = sc.nextLine();
+            if(line.isEmpty()) break;
+            id = line.split(":")[1];
+            id = id.substring(1, id.length() - 2);
+            time = Long.parseLong(line.split("]")[0].substring(1));
+            type = line.split("]")[1].substring(1);
+            if (type.equals("logout")) {
+                idToOut.put(id, time);
+            } else if (type.equals("login")) {
+                inTime.add(time);
+                inToId.put(time, id);
+            }
         }
-        HashSet<Integer> rooms = new HashSet<>();
-        rooms.add(1);
-        boolean first = true;
-        int preSize = cos.size();
-        ArrayList<ArrayList<Integer>> delet = new ArrayList<>();
-        while(first || (preSize!=cos.size())){
-            first = false;
-            preSize = cos.size();
-            delet = new ArrayList<>();
-            for(int i=0;i<cos.size();++i){
-                if(rooms.contains(cos.get(i).get(2)) && (rooms.contains(cos.get(i).get(0)) || rooms.contains(cos.get(i).get(1)))){
-                    delet.add(cos.get(i));
-                    rooms.add(cos.get(i).get(1));
-                    rooms.add(cos.get(i).get(0));
+        inTime.sort(new Comparator<Long>() {
+            @Override
+            public int compare(Long o1, Long o2) {
+                return (int) (o1-o2);
+            }
+        });
+
+        long otherin,otherout = 0;
+        long in;
+        String otherId="";
+        double tmp = 0;
+        long ontime, otherontime=0;
+        for(int i=0;i<inTime.size();++i){
+            in = inTime.get(i);
+            id = inToId.get(in);
+            out = idToOut.get(id);
+            ontime =out-in;
+            for(int t=i+1; t< inTime.size() &&inTime.get(t)<out;++t){
+                otherin = inTime.get(t);
+                otherId = inToId.get(otherin);
+                otherout = idToOut.get(otherId);
+                otherontime = otherout - otherin;
+                if(otherout<out){
+                    tmp = 20000*(otherout-otherin)/(otherontime + ontime);
+                    if(tmp > maxMatchRate){
+                        ans = new ArrayList<String >();
+                        ans.add(id);
+                        ans.add(otherId);
+                    }
+                }else {
+                    tmp = 20000*(out-otherin)/(otherontime + ontime);
+                    if(tmp > maxMatchRate){
+                        ans = new ArrayList<String>();
+                        ans.add(id);
+                        ans.add(otherId);
+                    }
                 }
             }
-            for(int i=0;i<delet.size();++i){
-                cos.remove(delet.get(i));
-            }
         }
-        System.out.println(rooms.size());
+
+        for(String t:ans){
+            System.out.println(t);
+        }
 
     }
-
 
 }

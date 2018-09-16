@@ -10,6 +10,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/Useful Data Structures" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Useful Method" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/LeetCode" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/BinaryTree" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Backtrack" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

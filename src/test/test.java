@@ -147,7 +147,7 @@ public class test {
 
         return first_match && isMatch(text.substring(1), pattern.substring(1));
     }
-
+    // 逆序对
     public static int inversPairNum(int[] arr, int left, int right) {
         if (left >= right)
             return 0;
@@ -170,6 +170,7 @@ public class test {
                 rightIdx--;
             }
         }
+        // 记得排序！
         Arrays.sort(arr, left, right + 1);
 
         return leftCount + rightCount + mergeCount;
@@ -400,6 +401,7 @@ public class test {
 
     }
 
+    //对称问题
 
     boolean isSymmetrical(TreeNode pRoot) {
         return pRoot == null || isSymmmetrical(pRoot.left, pRoot.right);
@@ -427,8 +429,6 @@ public class test {
         } else {
             return false;
         }
-
-
     }
 
 
@@ -683,6 +683,7 @@ public class test {
     }
 
 
+    // 找到等于指定值的所有路径
     public ArrayList<ArrayList<Integer>> FindPath(TreeNode root, int target) {
         ArrayList<ArrayList<Integer>> res = new ArrayList<>();
         ArrayList<TreeNode> paths = new ArrayList<>();
@@ -733,32 +734,53 @@ public class test {
         return res;
     }
 
-    public static void printListFromTailToHead(ListNode node, ArrayList<Integer> res){
-        if(node==null) return;
-        if(node.next ==null){
+    public static void printListFromTailToHead(ListNode node, ArrayList<Integer> res) {
+        if (node == null) return;
+        if (node.next == null) {
             res.add(node.val);
             return;
         }
         printListFromTailToHead(node.next, res);
         res.add(node.val);
     }
+
     //  反转链表
-    public ListNode ReverseList(ListNode first){
-        if(first ==null) // 链表为空
+    public ListNode ReverseList(ListNode first) {
+        if (first == null) // 链表为空
             return null;
         ListNode p = first;
         ListNode q = first.next;
         p.next = null;
-        if(q==null) // 链表只有一个元素
+        if (q == null) // 链表只有一个元素
             return p;
-        while (q.next!=null){
+        while (q.next != null) {
             ListNode r = q.next;
             q.next = p;
             p = q;
-            q=r;
+            q = r;
         }
         // q 是最后一个节点，p是倒数第二个节点
         q.next = p;
         return q;
+    }
+
+
+    // 树的子结构
+    public boolean HasSubtree(TreeNode root1, TreeNode root2) {
+        if (root2 == null || root1 == null) return false;
+
+        if (root1.val == root2.val && tree1HasTree2(root1, root2)) return true;
+
+        return HasSubtree(root1.left, root2) || HasSubtree(root1.right, root2);
+
+    }
+
+    public boolean tree1HasTree2(TreeNode root1, TreeNode root2) {
+        if (root2 == null) return true;
+        if (root1 == null) return false;
+        if (root1.val == root2.val) {
+            return tree1HasTree2(root1.left, root2.left) && tree1HasTree2(root1.right, root2.right);
+        }
+        return false;
     }
 }
