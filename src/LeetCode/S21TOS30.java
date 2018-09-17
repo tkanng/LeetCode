@@ -3,8 +3,8 @@ import java.util.*;
 
 public class S21TOS30 {
     public static void main(String[] args) {
-
-        System.out.println(-19%20);
+        System.out.println(Integer.MAX_VALUE * -1);
+        System.out.println(Integer.MIN_VALUE);
     }
 
     // Definition for singly-linked list.
@@ -190,5 +190,6 @@ public class S21TOS30 {
         return -1;
     }
 
-
 }
+
+

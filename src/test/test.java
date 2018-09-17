@@ -1,5 +1,6 @@
 
 
+import org.omg.CORBA.INTERNAL;
 import sun.awt.geom.AreaOp;
 
 import javax.sound.midi.Soundbank;
@@ -108,32 +109,30 @@ public class test {
 //            r = r.next;
 //        }
 
-//        Integer[] array = new Integer[]{1, 2, 4, 7, 11, 15};
-//
-//        Arrays.sort(array);
-//        System.out.println(Arrays.toString(array));
-//
-//        Comparator<Integer> cmp = new Comparator<Integer>() {
-//            @Override
-//            public int compare(Integer o1, Integer o2) {
-//                return o2 - o1;
-//            }
-//        };
-//
-//        Arrays.sort(array, cmp);
-//
-//        System.out.println(Arrays.toString(array));
-        int[] array = new int[]{7, 11, 15, 1, 2, 4,};
+        Integer[] array = new Integer[]{1, 2, 4, 7, 11, 15};
+
+        Arrays.sort(array);
         System.out.println(Arrays.toString(array));
-        changeArray(array);
+
+        Comparator<Integer> cmp = new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o2 - o1;
+            }
+        };
+
+        Arrays.sort(array, cmp);
+
         System.out.println(Arrays.toString(array));
+//        int[] array = new int[]{7, 11, 15, 1, 2, 4,};
+//        System.out.println(Arrays.toString(array));
+//        changeArray(array);
+//        System.out.println(Arrays.toString(array));
     }
 
-    public static void changeArray(int [] array){
+    public static void changeArray(int[] array) {
         array[0] = 1;
     }
-
-
 
 
     public static boolean isMatch(String text, String pattern) {
@@ -665,30 +664,54 @@ public class test {
             return null;
         if (pre.length != in.length)
             return null;
-        return reConstructBinaryTreeCore(pre, 0, pre.length - 1, in, 0, in.length-1);
+        return reConstructBinaryTreeCore(pre, 0, pre.length - 1, in, 0, in.length - 1);
     }
 
     public TreeNode reConstructBinaryTreeCore(int[] pre, int pre_start, int pre_end, int[] in, int in_start, int in_end) {
-        if(pre_end-pre_start <0 || in_end-in_start<0 || pre_end>pre.length-1|| in_end>in.length-1)
+        if (pre_end - pre_start < 0 || in_end - in_start < 0 || pre_end > pre.length - 1 || in_end > in.length - 1)
             return null;
-        if(pre_end == pre_start)
+        if (pre_end == pre_start)
             return new TreeNode(pre[pre_start]);
-        TreeNode root  = new TreeNode(pre[pre_start]);
-        int rootIdxOfIn =-1;
-        for(int i=in_start;i<=in_end;++i){
-            if(in[i]==root.val){
+        TreeNode root = new TreeNode(pre[pre_start]);
+        int rootIdxOfIn = -1;
+        for (int i = in_start; i <= in_end; ++i) {
+            if (in[i] == root.val) {
                 rootIdxOfIn = i;
                 break;
             }
         }
         // don't find root.val in Array in
-        if(rootIdxOfIn<0) return null;
-        root.left = reConstructBinaryTreeCore(pre, pre_start+1, pre_start+rootIdxOfIn-in_start, in, in_start, rootIdxOfIn-1);
-        root.right = reConstructBinaryTreeCore(pre, pre_start+rootIdxOfIn-in_start+1, pre_end, in, rootIdxOfIn+1, in_end);
+        if (rootIdxOfIn < 0) return null;
+        root.left = reConstructBinaryTreeCore(pre, pre_start + 1, pre_start + rootIdxOfIn - in_start, in, in_start, rootIdxOfIn - 1);
+        root.right = reConstructBinaryTreeCore(pre, pre_start + rootIdxOfIn - in_start + 1, pre_end, in, rootIdxOfIn + 1, in_end);
         return root;
     }
 
 
+    public String PrintMinNumber(int[] numbers) {
+        Integer[] integers  =new Integer[numbers.length];
+        for(int i=0;i<numbers.length;++i){
+            integers[i] = numbers[i];
+        }
+
+        Comparator<Integer> cmp = new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                if(Integer.parseInt(o1.toString() + o2) > Integer.parseInt(o2.toString()+o1)){
+                    return 1;
+                }else{
+                    return -1; //
+                }
+            }
+        };
 
 
+        Arrays.sort(integers, cmp);
+        StringBuffer sb = new StringBuffer();
+        for(Integer i:integers){
+            sb.append(i.toString());
+        }
+        return sb.toString();
+
+    }
 }
