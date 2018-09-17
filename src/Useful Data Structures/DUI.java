@@ -1,6 +1,4 @@
-import java.util.Comparator;
-import java.util.PriorityQueue;
-import java.util.Queue;
+import java.util.*;
 
 public class DUI {
 
@@ -36,6 +34,28 @@ public class DUI {
             System.out.print(q2.poll() + ",");
         }
 
+
+        TreeSet<Integer> treeSet = new TreeSet<>(new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+
+                return o2-o1;
+            }
+        });
+
+        treeSet.add(0);
+        treeSet.add(3);
+        treeSet.add(1);
+        treeSet.add(4);
+        treeSet.add(111121);
+        treeSet.add(9);
+        treeSet.add(8);
+        treeSet.add(6);
+        HashMap<Character, Integer> map = new HashMap<>();
+        System.out.println(treeSet.first());
     }
+
+
+
 
 }

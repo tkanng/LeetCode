@@ -1,10 +1,5 @@
 
 
-import org.omg.CORBA.INTERNAL;
-import sun.awt.geom.AreaOp;
-
-import javax.sound.midi.Soundbank;
-import java.awt.*;
 import java.util.*;
 
 public class test {
@@ -109,25 +104,25 @@ public class test {
 //            r = r.next;
 //        }
 
-        Integer[] array = new Integer[]{1, 2, 4, 7, 11, 15};
-
-        Arrays.sort(array);
-        System.out.println(Arrays.toString(array));
-
-        Comparator<Integer> cmp = new Comparator<Integer>() {
-            @Override
-            public int compare(Integer o1, Integer o2) {
-                return o2 - o1;
-            }
-        };
-
-        Arrays.sort(array, cmp);
-
-        System.out.println(Arrays.toString(array));
-//        int[] array = new int[]{7, 11, 15, 1, 2, 4,};
+//        Integer[] array = new Integer[]{1, 2, 4, 7, 11, 15};
+//
+//        Arrays.sort(array);
 //        System.out.println(Arrays.toString(array));
-//        changeArray(array);
+//
+//        Comparator<Integer> cmp = new Comparator<Integer>() {
+//            @Override
+//            public int compare(Integer o1, Integer o2) {
+//                return o2 - o1;
+//            }
+//        };
+//
+//        Arrays.sort(array, cmp);
+//
 //        System.out.println(Arrays.toString(array));
+        int[] array = new int[]{7, 11, 15, 1, 2, 4,};
+        System.out.println(Arrays.toString(array));
+        changeArray(array);
+        System.out.println(Arrays.toString(array));
     }
 
     public static void changeArray(int[] array) {
@@ -152,7 +147,7 @@ public class test {
 
         return first_match && isMatch(text.substring(1), pattern.substring(1));
     }
-
+    // 逆序对
     public static int inversPairNum(int[] arr, int left, int right) {
         if (left >= right)
             return 0;
@@ -175,6 +170,7 @@ public class test {
                 rightIdx--;
             }
         }
+        // 记得排序！
         Arrays.sort(arr, left, right + 1);
 
         return leftCount + rightCount + mergeCount;
@@ -405,6 +401,7 @@ public class test {
 
     }
 
+    //对称问题
 
     boolean isSymmetrical(TreeNode pRoot) {
         return pRoot == null || isSymmmetrical(pRoot.left, pRoot.right);
@@ -432,8 +429,6 @@ public class test {
         } else {
             return false;
         }
-
-
     }
 
 
@@ -688,30 +683,104 @@ public class test {
     }
 
 
-    public String PrintMinNumber(int[] numbers) {
-        Integer[] integers  =new Integer[numbers.length];
-        for(int i=0;i<numbers.length;++i){
-            integers[i] = numbers[i];
-        }
-
-        Comparator<Integer> cmp = new Comparator<Integer>() {
+    // 找到等于指定值的所有路径
+    public ArrayList<ArrayList<Integer>> FindPath(TreeNode root, int target) {
+        ArrayList<ArrayList<Integer>> res = new ArrayList<>();
+        ArrayList<TreeNode> paths = new ArrayList<>();
+        // 保证root 一定不为null
+        FindPath(root, target, res, paths);
+        res.sort(new Comparator<ArrayList<Integer>>() {
             @Override
-            public int compare(Integer o1, Integer o2) {
-                if(Integer.parseInt(o1.toString() + o2) > Integer.parseInt(o2.toString()+o1)){
-                    return 1;
-                }else{
-                    return -1; //
-                }
+            public int compare(ArrayList<Integer> o1, ArrayList<Integer> o2) {
+                return o2.size() - o1.size();
             }
-        };
+        });
+        return res;
+    }
 
-
-        Arrays.sort(integers, cmp);
-        StringBuffer sb = new StringBuffer();
-        for(Integer i:integers){
-            sb.append(i.toString());
+    public static void FindPath(TreeNode root, int target, ArrayList<ArrayList<Integer>> res, ArrayList<TreeNode> paths) {
+        if (root == null)
+            return;
+        if (root.left == null && root.right == null) {
+            // 判断paths中节点与当前节点val和，是否等于target
+            int tmp = root.val;
+            for (TreeNode node : paths) {
+                tmp += node.val;
+            }
+            if (tmp == target) {
+                ArrayList<Integer> oneResult = new ArrayList<>();
+                for (TreeNode node : paths) {
+                    oneResult.add(node.val);
+                }
+                oneResult.add(root.val);
+                res.add(oneResult);
+            }
+            return;
         }
-        return sb.toString();
+        paths.add(root);
+        if (root.left != null) {
+            FindPath(root.left, target, res, paths);
+        }
+        if (root.right != null) {
+            FindPath(root.right, target, res, paths);
+        }
+        paths.remove(paths.size() - 1); // 深度遍历后，需要回退一格！
+    }
 
+
+    public ArrayList<Integer> printListFromTailToHead(ListNode listNode) {
+        ArrayList<Integer> res = new ArrayList<>();
+        printListFromTailToHead(listNode, res);
+        return res;
+    }
+
+    public static void printListFromTailToHead(ListNode node, ArrayList<Integer> res) {
+        if (node == null) return;
+        if (node.next == null) {
+            res.add(node.val);
+            return;
+        }
+        printListFromTailToHead(node.next, res);
+        res.add(node.val);
+    }
+
+    //  反转链表
+    public ListNode ReverseList(ListNode first) {
+        if (first == null) // 链表为空
+            return null;
+        ListNode p = first;
+        ListNode q = first.next;
+        p.next = null;
+        if (q == null) // 链表只有一个元素
+            return p;
+        while (q.next != null) {
+            ListNode r = q.next;
+            q.next = p;
+            p = q;
+            q = r;
+        }
+        // q 是最后一个节点，p是倒数第二个节点
+        q.next = p;
+        return q;
+    }
+
+
+    // 树的子结构
+    public boolean HasSubtree(TreeNode root1, TreeNode root2) {
+        if (root2 == null || root1 == null) return false;
+
+        if (root1.val == root2.val && tree1HasTree2(root1, root2)) return true;
+
+        return HasSubtree(root1.left, root2) || HasSubtree(root1.right, root2);
+
+    }
+
+    public boolean tree1HasTree2(TreeNode root1, TreeNode root2) {
+        if (root2 == null) return true;
+        if (root1 == null) return false;
+        if (root1.val == root2.val) {
+            return tree1HasTree2(root1.left, root2.left) && tree1HasTree2(root1.right, root2.right);
+        }
+        return false;
     }
 }

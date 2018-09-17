@@ -3,8 +3,8 @@ import java.util.*;
 
 public class S21TOS30 {
     public static void main(String[] args) {
-        System.out.println(Integer.MAX_VALUE * -1);
-        System.out.println(Integer.MIN_VALUE);
+
+        System.out.println(-19%20);
     }
 
     // Definition for singly-linked list.
@@ -174,8 +174,6 @@ public class S21TOS30 {
     }
 
     //S28
-
-
     public int strStr(String haystack, String needle) {
         if (needle.equals(""))
             return 0;
@@ -190,6 +188,22 @@ public class S21TOS30 {
         return -1;
     }
 
+
+
+
+    public int searchInsert(int[] nums, int target) {
+        int low = 0;
+        int high = nums.length - 1;
+        if (target > nums[high]) return high+1;
+        if (target < nums[0]) return 0;
+        while (low <= high) {
+            int mid = (low + high) / 2;
+            if (nums[mid] == target) return mid;
+            if (nums[mid] < target) low = mid + 1;
+            else high = mid - 1;
+        }
+        //  如果没有找到,那么low > high
+        return low;
+    }
+
 }
-
-
