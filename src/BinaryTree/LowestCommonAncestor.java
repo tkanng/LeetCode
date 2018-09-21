@@ -27,11 +27,9 @@ public class LowestCommonAncestor {
         if(root == null || root == node1 || root == node2){
             return null;
         }
-
         //Divide:
         TreeNode left = lowestCommonAncestor(root.left, node1, node2);
         TreeNode right = lowestCommonAncestor(root.right, node1, node2);
-
         //Conquer:
         if(left != null && right != null){
             return root;

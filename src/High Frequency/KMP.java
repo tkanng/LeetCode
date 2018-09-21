@@ -1,4 +1,8 @@
 public class KMP {
+    public static void main(String[] args) {
+        System.out.println(KMPMatch("ssspattern", "pattern"));
+    }
+
     public static int[] getNext(String ps) {
         char[] p = ps.toCharArray();
         int[] next = new int[p.length];
@@ -14,46 +18,26 @@ public class KMP {
         }
         return next;
     }
-
-    public static int KMP(String ts, String ps) {
+    public static int KMPMatch(String ts, String ps) {
         char[] t = ts.toCharArray();
         char[] p = ps.toCharArray();
-
         int i = 0; // 主串的位置
-
         int j = 0; // 模式串的位置
-
         int[] next = getNext(ps);
-
         while (i < t.length && j < p.length) {
-
             if (j == -1 || t[i] == p[j]) { // 当j为-1时，要移动的是i，当然j也要归0
-
                 i++;
-
                 j++;
-
             } else {
-
                 // i不需要回溯了
-
                 // i = i - j + 1;
-
                 j = next[j]; // j回到指定位置
-
             }
-
         }
-
         if (j == p.length) {
-
             return i - j;
-
         } else {
-
             return -1;
-
         }
-
     }
 }
