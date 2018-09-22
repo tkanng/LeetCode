@@ -8,7 +8,7 @@ public class MinimumPathSum {
 
         int[][] minSums = new int[m][n];
         // 初始化，边界值
-        minSums[0][0] = grid[0][0];
+        minSums[0][0] = grid[0][0];// 初始化起点！
         for (int i = 1; i < m; ++i) {
             minSums[i][0] = minSums[i - 1][0] + grid[i][0];
         }

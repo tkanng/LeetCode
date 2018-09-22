@@ -246,81 +246,110 @@
 //[1531375200][logout],{"roleid":"3"}
 //
 
-import java.util.*;
+//import java.util.*;
+//
+//public class Main {
+//
+//    public static void main(String[] args) {
+//
+//        Scanner sc = new Scanner(System.in);
+//        ArrayList<Long> inTime = new ArrayList<>();
+//        HashMap<Long, String> inToId = new HashMap<>();
+//        String line = "";
+//        HashMap<String, Long> idToOut = new HashMap<>();
+//        long time = 0L;
+//        long out = 0L;
+//        String id = "";
+//        String type = "";
+//        ArrayList<String > ans = new ArrayList<>();
+//        double maxMatchRate = 0.0;
+//        while (sc.hasNextLine()) {
+//            line = sc.nextLine();
+//            if(line.isEmpty()) break;
+//            id = line.split(":")[1];
+//            id = id.substring(1, id.length() - 2);
+//            time = Long.parseLong(line.split("]")[0].substring(1));
+//            type = line.split("]")[1].substring(1);
+//            if (type.equals("logout")) {
+//                idToOut.put(id, time);
+//            } else if (type.equals("login")) {
+//                inTime.add(time);
+//                inToId.put(time, id);
+//            }
+//        }
+//        inTime.sort(new Comparator<Long>() {
+//            @Override
+//            public int compare(Long o1, Long o2) {
+//                return (int) (o1-o2);
+//            }
+//        });
+//
+//        long otherin,otherout = 0;
+//        long in;
+//        String otherId="";
+//        double tmp = 0;
+//        long ontime, otherontime=0;
+//        for(int i=0;i<inTime.size();++i){
+//            in = inTime.get(i);
+//            id = inToId.get(in);
+//            out = idToOut.get(id);
+//            ontime =out-in;
+//            for(int t=i+1; t< inTime.size() &&inTime.get(t)<out;++t){
+//                otherin = inTime.get(t);
+//                otherId = inToId.get(otherin);
+//                otherout = idToOut.get(otherId);
+//                otherontime = otherout - otherin;
+//                if(otherout<out){
+//                    tmp = 20000*(otherout-otherin)/(otherontime + ontime);
+//                    if(tmp > maxMatchRate){
+//                        ans = new ArrayList<String >();
+//                        ans.add(id);
+//                        ans.add(otherId);
+//                    }
+//                }else {
+//                    tmp = 20000*(out-otherin)/(otherontime + ontime);
+//                    if(tmp > maxMatchRate){
+//                        ans = new ArrayList<String>();
+//                        ans.add(id);
+//                        ans.add(otherId);
+//                    }
+//                }
+//            }
+//        }
+//
+//        for(String t:ans){
+//            System.out.println(t);
+//        }
+//
+//    }
+//
+//}
+
+import java.util.HashSet;
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
-
         Scanner sc = new Scanner(System.in);
-        ArrayList<Long> inTime = new ArrayList<>();
-        HashMap<Long, String> inToId = new HashMap<>();
-        String line = "";
-        HashMap<String, Long> idToOut = new HashMap<>();
-        long time = 0L;
-        long out = 0L;
-        String id = "";
-        String type = "";
-        ArrayList<String > ans = new ArrayList<>();
-        double maxMatchRate = 0.0;
-        while (sc.hasNextLine()) {
-            line = sc.nextLine();
-            if(line.isEmpty()) break;
-            id = line.split(":")[1];
-            id = id.substring(1, id.length() - 2);
-            time = Long.parseLong(line.split("]")[0].substring(1));
-            type = line.split("]")[1].substring(1);
-            if (type.equals("logout")) {
-                idToOut.put(id, time);
-            } else if (type.equals("login")) {
-                inTime.add(time);
-                inToId.put(time, id);
-            }
+        int N = sc.nextInt();
+        int[] addr = new int[N];
+        int preCount=0;
+        int currCount =0;
+        HashSet<Integer> set = new HashSet<>();
+        for(int i=0;i<N;++i){
+            addr[i] = sc.nextInt();
+            set.add(addr[i]);
         }
-        inTime.sort(new Comparator<Long>() {
-            @Override
-            public int compare(Long o1, Long o2) {
-                return (int) (o1-o2);
-            }
-        });
+        for(int i=2;i<set.size();++i){
+            int [] cache = new int[i];
+            for(int j=0;j<i;++j){
 
-        long otherin,otherout = 0;
-        long in;
-        String otherId="";
-        double tmp = 0;
-        long ontime, otherontime=0;
-        for(int i=0;i<inTime.size();++i){
-            in = inTime.get(i);
-            id = inToId.get(in);
-            out = idToOut.get(id);
-            ontime =out-in;
-            for(int t=i+1; t< inTime.size() &&inTime.get(t)<out;++t){
-                otherin = inTime.get(t);
-                otherId = inToId.get(otherin);
-                otherout = idToOut.get(otherId);
-                otherontime = otherout - otherin;
-                if(otherout<out){
-                    tmp = 20000*(otherout-otherin)/(otherontime + ontime);
-                    if(tmp > maxMatchRate){
-                        ans = new ArrayList<String >();
-                        ans.add(id);
-                        ans.add(otherId);
-                    }
-                }else {
-                    tmp = 20000*(out-otherin)/(otherontime + ontime);
-                    if(tmp > maxMatchRate){
-                        ans = new ArrayList<String>();
-                        ans.add(id);
-                        ans.add(otherId);
-                    }
-                }
             }
-        }
+            for(int j=0;j<N;++j){
 
-        for(String t:ans){
-            System.out.println(t);
+            }
         }
 
     }
-
 }
