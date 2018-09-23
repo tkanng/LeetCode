@@ -1,9 +1,27 @@
 import java.util.Arrays;
 
-public class S31TOS40 {
+public class S51TOS60 {
 
-    //S31
-    public void nextPermutation(int[] nums) {
+
+    //S60
+
+
+    public String getPermutation(int n, int k) {
+        int [] nums = new int[n];
+        for(int i=0;i<n;++i){
+            nums[i] = 1;
+        }
+        for(int i=0;i<k;++i){
+            nextPermutation(nums);
+        }
+        StringBuffer sb = new StringBuffer();
+        for(int num:nums){
+            sb.append(num);
+        }
+        return sb.toString();
+    }
+
+    public static void nextPermutation(int[] nums) {
         if (nums.length <= 1)
             return;
         int i = nums.length - 1;

@@ -6,10 +6,7 @@ public class CombinationSum2 {
 
 
     public static void main(String[] args) {
-
-
         System.out.println(combinationSum2(new int[] {1,1,6}, 8));
-
     }
 
     public static List<List<Integer>> combinationSum2(int[] nums, int target) {

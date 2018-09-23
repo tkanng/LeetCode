@@ -39,7 +39,7 @@ public class Combinations {
         if (tempList.size() == k) {
             list.add(new ArrayList<>(tempList));
         } else {
-            for (int i = 1; i < n+1; i++) {
+            for (int i = 1; i < n+1; i++) { //从1开始，因为题目要求
                 tempList.add(i);
                 backtrack(list, tempList, n,k);
                 tempList.remove(tempList.size() - 1);

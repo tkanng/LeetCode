@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
 
 public class Permutation {
@@ -12,7 +13,7 @@ public class Permutation {
         ArrayList<String> res = new ArrayList<>();
         if (str != null && str.length() > 0) {
             PermutationHelper(str.toCharArray(), 0, res);
-            Collections.sort(res);
+            Collections.sort(res); // 升序排列
         }
         return (ArrayList) res;
     }
@@ -36,5 +37,28 @@ public class Permutation {
         cs[i] = cs[j];
         cs[j] = temp;
     }
+
+    // 没有重复元素的问题解决方法
+    public List<List<Integer>> permute(int[] nums) {
+        List<List<Integer>> list = new ArrayList<>();
+        // Arrays.sort(nums); // not necessary
+        LinkedHashSet<Integer> tmpList = new LinkedHashSet<Integer>();
+        backtrack(list, tmpList, nums);
+        return list;
+    }
+
+    private void backtrack(List<List<Integer>> list, LinkedHashSet<Integer> tempList, int[] nums) {
+        if (tempList.size() == nums.length) {
+            list.add(new ArrayList<>(tempList));
+        } else {
+            for (int i = 0; i < nums.length; i++) {
+                if (tempList.contains(nums[i])) continue; // element already exists, skip
+                tempList.add(nums[i]);
+                backtrack(list, tempList, nums);
+                tempList.remove(nums[i]);
+            }
+        }
+    }
+
 }
 
