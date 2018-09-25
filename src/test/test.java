@@ -690,7 +690,7 @@ public class test {
         ArrayList<TreeNode> paths = new ArrayList<>();
         // 保证root 一定不为null
         FindPath(root, target, res, paths);
-        res.sort(new Comparator<ArrayList<Integer>>() {
+        Collections.sort(res, new Comparator<ArrayList<Integer>>() {
             @Override
             public int compare(ArrayList<Integer> o1, ArrayList<Integer> o2) {
                 return o2.size() - o1.size();
