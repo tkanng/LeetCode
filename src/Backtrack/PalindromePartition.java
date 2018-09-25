@@ -9,7 +9,7 @@ public class PalindromePartition {
 
     public List<List<String>> partition(String s) {
         List<List<String>> list = new ArrayList<>();
-        backtrack(list, new ArrayList<>(), s, 0);
+        backtrack(list, new ArrayList<String>(), s, 0);
         return list;
     }
 

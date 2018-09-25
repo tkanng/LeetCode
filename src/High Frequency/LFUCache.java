@@ -12,7 +12,7 @@ public class LFUCache {
         vals = new HashMap<>();
         counts = new HashMap<>();
         lists = new HashMap<>();
-        lists.put(1, new LinkedHashSet<>());
+        lists.put(1, new LinkedHashSet<Integer>());
     }
 
     public int get(int key) {
@@ -24,7 +24,7 @@ public class LFUCache {
         if (count == min && lists.get(count).size() == 0)
             min++;
         if (!lists.containsKey(count + 1))
-            lists.put(count + 1, new LinkedHashSet<>());
+            lists.put(count + 1, new LinkedHashSet<Integer>());
         lists.get(count + 1).add(key);
         return vals.get(key);
     }
@@ -37,6 +37,7 @@ public class LFUCache {
             get(key);
             return;
         }
+        // 新加入元素，需要判断是否达到cap,并且将min置为1！！
         if (vals.size() >= cap) {
             int evit = lists.get(min).iterator().next();
             lists.get(min).remove(evit);

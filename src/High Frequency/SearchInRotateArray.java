@@ -51,7 +51,7 @@ public class SearchInRotateArray {
         int hi = nums.length - 1;
         int mid = (lo + hi) / 2;
         while (lo < hi) {
-            mid = (lo + hi) / 2;
+            mid = lo + (hi-lo) / 2; // 防止溢出
             if (mid == lo) {
                 return nums[lo] < nums[hi] ? lo : hi;
             }

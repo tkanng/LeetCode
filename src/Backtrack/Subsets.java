@@ -43,7 +43,7 @@ Combine them, now we have [ [ ], [1], [2], [1,2], [3], [1,3], [2,3], [1,2,3] ]
      */
     public List<List<Integer>> subsets2(int[] nums) {
         List<List<Integer>> result = new ArrayList<>();
-        result.add(new ArrayList<>());
+        result.add(new ArrayList<Integer>());
         for (int n : nums) {
             int size = result.size();
             for (int i = 0; i < size; i++) {

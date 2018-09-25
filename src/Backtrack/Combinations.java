@@ -12,7 +12,7 @@ public class Combinations {
     // 不可重复使用
     public static List<List<Integer>> combine(int n, int k) {
         List<List<Integer>> list = new ArrayList<>();
-        backtrack(list, new ArrayList<>(), n, k, 1); // 从1开始取
+        backtrack(list, new ArrayList<Integer>(), n, k, 1); // 从1开始取
         return list;
     }
 
@@ -32,7 +32,7 @@ public class Combinations {
     // 可以重复使用数字
     public List<List<Integer>> combineReuseNum(int n, int k) {
         List<List<Integer>> list = new ArrayList<>();
-        backtrack(list, new ArrayList<>(), n, k);
+        backtrack(list, new ArrayList<Integer>(), n, k);
         return list;
     }
     private void backtrack(List<List<Integer>> list, List<Integer> tempList, int n, int k) {

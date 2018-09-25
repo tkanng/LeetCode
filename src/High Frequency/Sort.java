@@ -71,7 +71,7 @@ public class Sort {
 
     private static void sort(int[] arr, int left, int right, int[] temp) {
         if (left < right) {
-            int mid = (left + right) / 2;
+            int mid = left + (right-left) /2; // 防止left+right 溢出
             sort(arr, left, mid, temp);//左边归并排序，使得左子序列有序
             sort(arr, mid + 1, right, temp);//右边归并排序，使得右子序列有序
             merge(arr, left, mid, right, temp);//将两个有序子数组合并操作

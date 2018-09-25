@@ -11,6 +11,7 @@ public class BiSearch {
         System.out.println(biSearch2(a,0,0,a.length-1));
 
         System.out.println(getFirstK(a,6, 3, 3));
+
         System.out.println(getLastK(a,6, 0, a.length-1));
 
     }
