@@ -13,6 +13,7 @@
       <sourceFolder url="file://$MODULE_DIR$/src/BinaryTree" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Backtrack" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Array Problems" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Stack Problems" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
