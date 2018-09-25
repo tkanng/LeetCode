@@ -1,9 +1,12 @@
 public class UniquePath {
 
 
+    //自底向上
     public int uniquePaths(int m, int n) {
+        // 函数里面，首先需要做的事情就是 1. 输入异常处理 2. 输入特殊情况处理，直接返回结果
         if(m<=0 ||n<=0)
             return 0;
+        // 特殊情况处理！
         if(m==1||n==1)
             return 1;
 
@@ -26,6 +29,16 @@ public class UniquePath {
 
         return paths[m-1][n-1];
     }
+
+    // 递归实现
+    public int uniquePaths2(int m, int n){
+        if(m<1 ||n<1)
+            return 0;
+        if(m==1 || n==1)
+            return 1;
+        return uniquePaths2(m-1, n) + uniquePaths2(m, n-1);
+    }
+
 
 
 }

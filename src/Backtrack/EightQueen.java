@@ -21,7 +21,6 @@ public class EightQueen {
                 chess[i][j]=0;
             }
         }
-
         putQueenAtRow(chess,0);
         Date end =new Date();
         System.out.println("解决 " +N+ " 皇后问题，用时：" +String.valueOf(end.getTime()-begin.getTime())+ "毫秒，计算结果："+count);
@@ -66,13 +65,12 @@ public class EightQueen {
         //判断中上、左上、右上是否安全
         int step=1;
         while(row-step>=0){
-            if(chess[row-step][col]==1)                //中上
+            if(chess[row-step][col]==1)                //中上,同一列
                 return false;
             if(col-step>=0 && chess[row-step][col-step]==1)        //左上
                 return false;
             if(col+step<N && chess[row-step][col+step]==1)        //右上
                 return false;
-
             step++;
         }
         return true;

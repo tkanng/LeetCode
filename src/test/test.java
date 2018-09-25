@@ -147,6 +147,7 @@ public class test {
 
         return first_match && isMatch(text.substring(1), pattern.substring(1));
     }
+
     // 逆序对
     public static int inversPairNum(int[] arr, int left, int right) {
         if (left >= right)
@@ -783,4 +784,6 @@ public class test {
         }
         return false;
     }
+
+
 }
