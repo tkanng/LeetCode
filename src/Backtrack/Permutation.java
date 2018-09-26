@@ -13,7 +13,7 @@ public class Permutation {
         ArrayList<String> res = new ArrayList<>();
         if (str != null && str.length() > 0) {
             PermutationHelper(str.toCharArray(), 0, res);
-            Collections.sort(res); // 升序排列
+//            Collections.sort(res); // 升序排列
         }
         return (ArrayList) res;
     }
