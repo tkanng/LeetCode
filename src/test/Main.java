@@ -325,6 +325,8 @@
 //
 //}
 
+
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Scanner;
 
@@ -332,24 +334,84 @@ public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-        int N = sc.nextInt();
-        int[] addr = new int[N];
-        int preCount=0;
-        int currCount =0;
-        HashSet<Integer> set = new HashSet<>();
-        for(int i=0;i<N;++i){
-            addr[i] = sc.nextInt();
-            set.add(addr[i]);
+        int n = sc.nextInt();
+        if(n<=1) {
+            System.out.println("");
+            return;
         }
-        for(int i=2;i<set.size();++i){
-            int [] cache = new int[i];
-            for(int j=0;j<i;++j){
-
-            }
-            for(int j=0;j<N;++j){
-
+        long[] nums = new long[n];
+        HashMap<Long, Integer> map1 = new HashMap<>();
+        HashMap<Long, Integer> map2 = new HashMap<>();
+        for (int i = 0; i < n; ++i) {
+            nums[i] = sc.nextLong();
+            map1.put(nums[i], 0);
+            if (map2.containsKey(nums[i])) {
+                map2.put(nums[i], map2.get(nums[i]) + 1);
+            } else {
+                map2.put(nums[i], 1);
             }
         }
+
+        int pre =0;
+        int curr = 0;
+        StringBuffer sb = new StringBuffer();
+        if (n >= 2) {
+            map1.put(nums[0], map1.get(nums[0]) + 1);
+            map2.put(nums[0], map2.get(nums[0]) - 1);
+            pre= n - 1 - map2.get(nums[0]);
+            sb.append(pre).append(" ");
+        }
+
+        for (int k = 1; k < n - 1; ++k) {
+            map1.put(nums[k], map1.get(nums[k]) + 1);
+            map2.put(nums[k], map2.get(nums[k]) - 1);
+            curr = pre - (k+1 - map1.get(nums[k])) + (n -1- k - map2.get(nums[k]));
+            sb.append(curr).append(" ");
+            pre = curr;
+        }
+
+        System.out.println(sb.toString().trim());
 
     }
 }
+
+
+
+
+
+/*
+有一天，小A和小B玩了一个神奇的游戏，游戏开始时，桌面上有a0个不同盒子和b0个不同的物品，每个回合，两个人可以选择增加一个新的盒子或者一个新的物品(所有物品和盒子都不同)，记当前桌子上的盒子数量为a，物品数量为b，当把b个物品放入a个盒子的方案数不小于n时，游戏结束，此时最后一位操作者判负。
+
+给出a0，b0，n，如果小A先手，两个人都采用最优策略，谁能获胜，如果A获胜输出“A”，如果B获胜，输出“B”，如果是平局，输出“A&B”。
+
+输入
+输入第一行是一个数据组数T(T<=10)。
+
+接下来T行，每行描述一个测试数据，包含三个整数a0,b0,n(1<=a0<=10000,1<=b0<=30,2<=n<=10^9)。分别表示桌子上初始的盒子数，球数和n值。
+
+输出
+对于每个测试数据，输出一行，仅包含一个字符串，即“A”，“B”或“A&B”。
+样例输入
+3
+2 2 10
+3 1 4
+1 4 10
+样例输出
+B
+A
+A&B
+
+ */
+//public class Main {
+//    public static void main(String[] args) {
+//
+//
+//        Scanner sc = new Scanner(System.in);
+//        int N = sc.nextInt();
+//
+//        System.out.println("A&B");
+//        System.out.println("A");
+//        System.out.println("B");
+//
+//    }
+//}
