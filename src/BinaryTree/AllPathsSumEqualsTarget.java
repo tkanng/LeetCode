@@ -42,6 +42,34 @@ Note that currSum is the prefix sum, i.e. the sum of all node values (from its a
         preSum.put(currSum, preSum.get(currSum) - 1);
     }
 
+    int result = 0;
+
+    public int pathSum3(TreeNode root, int sum) {
+        if (root == null) return 0;
+        tranverse(root, sum);
+        return result;
+    }
+
+    void tranverse(TreeNode root, int sum) {
+        result += pathCount(root, sum);
+        if (root.left != null) {
+            tranverse(root.left, sum);
+        }
+        if (root.right != null) {
+            tranverse(root.right, sum);
+        }
+    }
+
+    public int pathCount(TreeNode root, int remain) {
+        // 包含root路径中，所有节点的val和等于remain的个数
+        if (root == null) return 0;
+        int count = 0;
+        if (root.val == remain) count = 1;
+        count += pathCount(root.left, remain - root.val);
+        count += pathCount(root.right, remain - root.val);
+        return count;
+    }
+
 
     //递归做法（不推荐）
     //================寻找path（不一定从root开始，不一定终止与叶子节点）上的节点和为target=========
