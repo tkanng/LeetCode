@@ -1,6 +1,7 @@
 public class DiameterOfBinaryTree {
 
     /*
+    // 下面的方法有很多重复的计算！
     public int diameterOfBinaryTree(TreeNode root) {
         if (root == null) return 0;
         int leftMax = diameterOfBinaryTree(root.left);
