@@ -14,6 +14,7 @@ public class BinaryTreeMaximumPathSum {
         int maxWithRight = maxSumWithNode(root.right);
         int tmp = root.val + Math.max(0, Math.max(maxWithLeft, maxWithRight)); // 0表示不选择节点
         // 必须包含节点root节点的路径上，最大的节点和与maxSum比较
+        // 如果maxWithLeft,maxWithRight小于0,节点和最大的路径，就不会包含对应节点
         maxSum = Math.max(maxSum, root.val + Math.max(0, maxWithLeft) + Math.max(0, maxWithRight));
         return tmp;
 
