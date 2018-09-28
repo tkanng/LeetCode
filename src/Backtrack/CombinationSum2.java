@@ -39,14 +39,17 @@ public class CombinationSum2 {
     }
 
     private static void getResult(List<List<Integer>> result, List<Integer> cur, int[] candidates, int start, int currSum, int target) {
-
+        if (currSum > target) return; // 提前结束递归
         if (currSum == target)
             result.add(new ArrayList<Integer>(cur)); // 取得所有组合
-
-        for (int i = start; i < candidates.length; ++i) {
-            cur.add(candidates[i]);
-            getResult(result, cur, candidates, i + 1, currSum + candidates[i], target); // 这里需要更新start！！如果不更新start,会存在一直递归的情况。
-            cur.remove(cur.size() - 1);
+        else {
+            for (int i = start; i < candidates.length; ++i) {
+                // 通过这个条件得到有重复元素的数组中的所有组合！！！
+                if (i > start && candidates[i] == candidates[i - 1]) continue; // skip duplicates
+                cur.add(candidates[i]);
+                getResult(result, cur, candidates, i + 1, currSum + candidates[i], target); // 这里需要更新start！！如果不更新start,会存在一直递归的情况。
+                cur.remove(cur.size() - 1);
+            }
         }
     }
 }

@@ -33,6 +33,8 @@ public class Combinations {
             list.add(new ArrayList<>(tempList));
         } else {
             for (int i = start; i < n + 1; i++) {
+                // 当数组中有重复元素的时候，得到所有组合的条件！！
+//              if (i > start && nums[i] == nums[i - 1]) continue; // skip duplicates
                 tempList.add(i);
                 backtrack(list, tempList, n, k, i + 1);
                 tempList.remove(tempList.size() - 1);
@@ -79,4 +81,12 @@ public class Combinations {
             }
         }
     }
+
+    //===========================================下面针对数组中有重复数字的情况进行讨论=====================
+
+
+
+
+
+
 }

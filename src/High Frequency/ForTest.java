@@ -2,8 +2,7 @@ public class ForTest {
 
 
     public static void main(String[] args) {
-
-        char [] chars = new char[3];
+        char[] chars = new char[3];
         chars[0] = '0';
         chars[1] = ' ';
         chars[2] = '2';
@@ -16,10 +15,11 @@ public class ForTest {
     }
 
     // chars = new char [] {'0', ' ', '2'};
-    void foo(char[] chars){
+    void foo(char[] chars) {
         chars[1] = '1';  // chars变为{'0','1','2'}
     }
-    void foo2(char[] chars){
+
+    void foo2(char[] chars) {
         chars = null; // chars不变
     }
 

@@ -38,28 +38,6 @@ public class Permutation {
         cs[j] = temp;
     }
 
-    // 没有重复元素的问题解决方法
-    public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> list = new ArrayList<>();
-        // Arrays.sort(nums); // not necessary
-        LinkedHashSet<Integer> tmpList = new LinkedHashSet<Integer>();
-        backtrack(list, tmpList, nums);
-        return list;
-    }
-
-    private void backtrack(List<List<Integer>> list, LinkedHashSet<Integer> tempList, int[] nums) {
-        if (tempList.size() == nums.length) {
-            // 找到长度为nums.length的排列！！！
-            list.add(new ArrayList<>(tempList));
-        } else {
-            for (int i = 0; i < nums.length; i++) {
-                if (tempList.contains(nums[i])) continue; // element already exists, skip
-                tempList.add(nums[i]);
-                backtrack(list, tempList, nums);
-                tempList.remove(nums[i]);
-            }
-        }
-    }
 
 }
 
