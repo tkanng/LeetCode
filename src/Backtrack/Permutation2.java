@@ -50,6 +50,13 @@ public class Permutation2 {
         }
         for (int i = 0; i < nums.length; i++) {
             if (used[i]) continue;
+            //when a number has the same value with its previous,
+            // we can use this number only if his previous is used
+            /*
+            ，只对第一个未被使用的进行递归，我们那么这一次结果会出现在第一个的递归函数结果中，而后面重复的会被略过。
+            如果第一个重复元素前面的元素还没在当前结果中，那么我们不需要进行递归。想明白了这一点，代码其实很好修改。
+            首先我们要对元素集合排序，从而让重复元素相邻，接下来就是一行代码对于重复元素和前面元素使用情况的判断即可。
+             */
             if (i > 0 && nums[i - 1] == nums[i] && !used[i - 1]) continue;
             used[i] = true;
             list.add(nums[i]);

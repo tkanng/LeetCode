@@ -6,7 +6,7 @@ public class CombinationSum2 {
 
 
     public static void main(String[] args) {
-        System.out.println(combinationSum2(new int[] {1,1,6}, 8));
+        System.out.println(combinationSum2(new int[]{1, 1, 6}, 8));
     }
 
     public static List<List<Integer>> combinationSum2(int[] nums, int target) {
@@ -27,7 +27,26 @@ public class CombinationSum2 {
                 tempList.remove(tempList.size() - 1);
             }
         }
+
+
     }
 
+    public static List<List<Integer>> combinationSum2_1(int[] nums, int target) {
+        List<List<Integer>> list = new ArrayList<>();
+        Arrays.sort(nums);
+        getResult(list, new ArrayList<Integer>(), nums, 0, 0, target);
+        return list;
+    }
 
+    private static void getResult(List<List<Integer>> result, List<Integer> cur, int[] candidates, int start, int currSum, int target) {
+
+        if (currSum == target)
+            result.add(new ArrayList<Integer>(cur)); // 取得所有组合
+
+        for (int i = start; i < candidates.length; ++i) {
+            cur.add(candidates[i]);
+            getResult(result, cur, candidates, i + 1, currSum + candidates[i], target); // 这里需要更新start！！如果不更新start,会存在一直递归的情况。
+            cur.remove(cur.size() - 1);
+        }
+    }
 }

@@ -18,6 +18,7 @@ public class PalindromePartition {
             list.add(new ArrayList<>(tempList));
         else {
             for (int i = start; i < s.length(); i++) {
+                // 对循环进行限制！
                 if (isPalindrome(s, start, i)) {
                     tempList.add(s.substring(start, i + 1));
                     backtrack(list, tempList, s, i + 1);

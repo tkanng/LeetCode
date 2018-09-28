@@ -45,7 +45,7 @@ public class EightQueen {
 
         short[][] chessTemp=chess.clone();
 
-        /**
+        /*
          * 向这一行的每一个位置尝试排放皇后
          * 然后检测状态，如果安全则继续执行递归函数摆放下一行皇后
          */

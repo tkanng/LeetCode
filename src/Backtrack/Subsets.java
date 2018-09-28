@@ -9,6 +9,7 @@ public class Subsets {
         System.out.println(s.subsets(new int[]{1, 2, 3}));
     }
 
+    // 返回的是全部的组合，不是排列！！！！
     public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>> result = new ArrayList<List<Integer>>();
         getResult(result, new ArrayList<Integer>(), nums, 0);

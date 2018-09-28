@@ -46,6 +46,7 @@ Note that currSum is the prefix sum, i.e. the sum of all node values (from its a
 
     public int pathSum3(TreeNode root, int sum) {
         if (root == null) return 0;
+        result = 0;
         tranverse(root, sum);
         return result;
     }
@@ -61,7 +62,7 @@ Note that currSum is the prefix sum, i.e. the sum of all node values (from its a
     }
 
     public int pathCount(TreeNode root, int remain) {
-        // 包含root路径中，所有节点的val和等于remain的个数
+        // 包含root路径所有节点的val和等于remain,的路径条数
         if (root == null) return 0;
         int count = 0;
         if (root.val == remain) count = 1;

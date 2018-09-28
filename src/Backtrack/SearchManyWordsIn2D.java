@@ -6,6 +6,7 @@ import java.util.Set;
 
 public class SearchManyWordsIn2D {
     Set<String> res = new HashSet<String>();
+
     public List<String> findWords(char[][] board, String[] words) {
         Trie trie = new Trie();
         for (String word : words) {

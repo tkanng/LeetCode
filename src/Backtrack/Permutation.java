@@ -49,6 +49,7 @@ public class Permutation {
 
     private void backtrack(List<List<Integer>> list, LinkedHashSet<Integer> tempList, int[] nums) {
         if (tempList.size() == nums.length) {
+            // 找到长度为nums.length的排列！！！
             list.add(new ArrayList<>(tempList));
         } else {
             for (int i = 0; i < nums.length; i++) {
