@@ -4,14 +4,7 @@ import java.util.Stack;
 
 
 // Definition of TreeNode:
-class TreeNode {
-      public int val;
-      public TreeNode left, right;
-      public TreeNode(int val) {
-          this.val = val;
-          this.left = this.right = null;
-      }
-  }
+
 
 //Version : Divide & Conquer
 
@@ -25,7 +18,7 @@ public class LowestCommonAncestor {
 
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode node1, TreeNode node2) {
         if(root == null || root == node1 || root == node2){
-            return null;
+            return root;
         }
         //Divide:
         TreeNode left = lowestCommonAncestor(root.left, node1, node2);
