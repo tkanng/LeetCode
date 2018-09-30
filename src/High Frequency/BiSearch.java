@@ -110,7 +110,7 @@ public class BiSearch {
         int low = start;
         int high = end;
         if (k > nums[high]) return high + 1;
-        if (k < nums[0]) return 0;
+        if (k < nums[0]) return -1; // 当前k小于数组的最小值
         while (low <= high) {
             int mid = (low + high) / 2;
             if (nums[mid] < k) low = mid + 1;
