@@ -6,7 +6,7 @@ public class BiSearch {
 
     public static void main(String[] args) {
 
-        int[] a = new int[]{1, 3, 5, 6, 6};
+        int[] a = new int[]{2, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0};
 
         System.out.println(biSearch2(a, 0, 0, a.length - 1));
 
@@ -14,8 +14,9 @@ public class BiSearch {
 
         System.out.println(getLastK(a, 6, 0, a.length - 1));
 
-        System.out.println(getFirstBiggerThanK(a, 5, 0, a.length - 1));
+        System.out.println(getFirstBiggerThanK(a, 4, 0, 3 - 1));
         System.out.println(getFirstEqualOrBigger(a, 5, 0, a.length - 1));
+        System.out.println(getLargestNumSmallerThanK(a, 4, 0, a.length - 1));
 
     }
 
@@ -46,7 +47,7 @@ public class BiSearch {
 
 
     //递归写法
-    private static int getFirstK(int[] array, int k, int start, int end) {
+    public static int getFirstK(int[] array, int k, int start, int end) {
         if (start > end) {
             return -1;
         }
@@ -66,7 +67,7 @@ public class BiSearch {
     }
 
     //循环写法
-    private static int getLastK(int[] array, int k, int start, int end) {
+    public static int getLastK(int[] array, int k, int start, int end) {
         while (start <= end) {
             int mid = (start + end) >> 1;
             if (array[mid] > k) {
@@ -82,14 +83,14 @@ public class BiSearch {
         return -1;
     }
 
-    private static int getFirstEqualOrBigger(int[] array, int k, int start, int end) {
+    public static int getFirstEqualOrBigger(int[] array, int k, int start, int end) {
         int equalIdx = getFirstK(array, k, 0, array.length - 1);
         if (equalIdx >= 0)
             return equalIdx;
         return getFirstBiggerThanK(array, k, 0, array.length - 1);
     }
 
-    private static int getFirstBiggerThanK(int[] array, int k, int start, int end) {
+    public static int getFirstBiggerThanK(int[] array, int k, int start, int end) {
         // array升序排列
         int lo = start;
         int hi = end;
@@ -105,7 +106,9 @@ public class BiSearch {
         return lo;
     }
 
-    private static int getLargestNumSmallerThanK(int[] nums, int k, int start, int end) {
+
+    public static int getLargestNumSmallerThanK(int[] nums, int k, int start, int end) {
+        // 在prefixSum[i]大于target的时候，才选。
         // 在不存在k的数组中，寻找<k的最大数字的下标值。
         int low = start;
         int high = end;
@@ -119,6 +122,5 @@ public class BiSearch {
         //  如果没有找到,那么low > high
         return high;
     }
-
 
 }

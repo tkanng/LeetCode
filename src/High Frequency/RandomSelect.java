@@ -37,9 +37,6 @@ public class RandomSelect {
         // 随机化操作！！
         Random random = new Random();
         int pivotIdx = lo + Math.abs(random.nextInt() % (hi - lo + 1));
-
-
-
         int val = nums[pivotIdx];
         nums[pivotIdx] = nums[lo];
         nums[lo] = val;

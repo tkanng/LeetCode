@@ -12,7 +12,7 @@ public class ThreeSumUnique {
                 // 下面就是Two Sum问题了
                 int lo = i + 1, hi = num.length - 1, sum = 0 - num[i];
                 while (lo < hi) {
-                    // 防止重复，可以使用HashMap,key为较小值,value为较大值。
+                    // 防止重复，也可以使用HashMap,较小值为key,较大值为value。
                     if (num[lo] + num[hi] == sum) {
                         res.add(Arrays.asList(num[i], num[lo], num[hi]));
                         while (lo < hi && num[lo] == num[lo + 1]) lo++;

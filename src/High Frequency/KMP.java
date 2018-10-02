@@ -3,7 +3,7 @@ import java.util.Arrays;
 
 public class KMP {
     public static void main(String[] args) {
-        System.out.println(KMPMatch("ssspatternpattern", "pattern"));
+        System.out.println(KMPMatch("", "pattern"));
         System.out.println(Arrays.toString(getNext("aacaacbbcbadaabcacbd")));
         System.out.println(KMPAllMatch("pppppppppppppppp", "p"));
     }
