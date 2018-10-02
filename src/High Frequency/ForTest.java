@@ -11,6 +11,13 @@ public class ForTest {
         System.out.println(String.valueOf(chars));
         new ForTest().foo2(chars);
         System.out.println(String.valueOf(chars));
+        int t =1;
+
+        Integer i = 1;
+        System.out.println(i);
+        new ForTest().foo3(i);
+        System.out.println(i);
+
 
     }
 
@@ -23,5 +30,7 @@ public class ForTest {
         chars = null; // chars不变
     }
 
-
+    void foo3(Integer i){
+        i=100;
+    }
 }
