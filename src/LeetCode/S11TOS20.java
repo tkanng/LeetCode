@@ -181,14 +181,7 @@ public class S11TOS20 {
 
 
     // Definition for singly-linked list.
-    public class ListNode {
-        int val;
-        ListNode next;
 
-        ListNode(int x) {
-            val = x;
-        }
-    }
 
     //S19
     public ListNode removeNthFromEnd(ListNode head, int n) {

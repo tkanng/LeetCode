@@ -1,21 +1,14 @@
-import javax.swing.*;
-import java.util.*;
+import java.util.Comparator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.PriorityQueue;
 
 public class S21TOS30 {
     public static void main(String[] args) {
 
-        System.out.println(-19%20);
+        System.out.println(-19 % 20);
     }
 
-    // Definition for singly-linked list.
-    public class ListNode {
-        int val;
-        ListNode next;
-
-        ListNode(int x) {
-            val = x;
-        }
-    }
 
     public ListNode mergeTwoLists(ListNode l1, ListNode l2) {
         if (l1 == null)
@@ -189,12 +182,10 @@ public class S21TOS30 {
     }
 
 
-
-
     public int searchInsert(int[] nums, int target) {
         int low = 0;
         int high = nums.length - 1;
-        if (target > nums[high]) return high+1;
+        if (target > nums[high]) return high + 1;
         if (target < nums[0]) return 0;
         while (low <= high) {
             int mid = (low + high) / 2;

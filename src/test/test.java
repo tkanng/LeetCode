@@ -249,14 +249,7 @@ public class test {
     }
 
 
-    public static class ListNode {
-        int val;
-        ListNode next = null;
 
-        ListNode(int val) {
-            this.val = val;
-        }
-    }
 
 
     public static ListNode deleteDuplication(ListNode pHead) {
@@ -709,25 +702,7 @@ public class test {
         res.add(node.val);
     }
 
-    //  反转链表
-    public ListNode ReverseList(ListNode first) {
-        if (first == null) // 链表为空
-            return null;
-        ListNode p = first;
-        ListNode q = first.next;
-        p.next = null;
-        if (q == null) // 链表只有一个元素
-            return p;
-        while (q.next != null) {
-            ListNode r = q.next;
-            q.next = p;
-            p = q;
-            q = r;
-        }
-        // q 是最后一个节点，p是倒数第二个节点
-        q.next = p;
-        return q;
-    }
+
 
 
     // 树的子结构
