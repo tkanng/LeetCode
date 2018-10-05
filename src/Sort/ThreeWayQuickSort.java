@@ -9,11 +9,14 @@ import java.util.Arrays;
 public class ThreeWayQuickSort {
 
     public static void main(String[] args) {
-        int[] a = {9, 0, 6, 5, 8, 2, 1, 7, 4, 3};
+        int[] a = {3, 9, 0, 6, 8, 2, 1, 7, 4, 4, 3, 3, 3, 3, 3, 3};
         System.out.println(Arrays.toString(a));
-        ThreeWayQuickSort.sort(a);
+        gatherV(a, 0, a.length - 1, 5);
         System.out.println(Arrays.toString(a));
 
+//        System.out.println(Arrays.toString(a));
+//        ThreeWayQuickSort.sort(a);
+//        System.out.println(Arrays.toString(a));
     }
 
     public static void sort(int[] a) {
@@ -28,7 +31,7 @@ public class ThreeWayQuickSort {
         if (lo >= hi) {
             return;
         }
-        int v = a[lo], lt = lo, i = lo + 1, gt = hi;
+        int v = a[lo], lt = lo, i = lo, gt = hi;
         // 这里的v是一个pivot值！！！
         while (i <= gt) {
             if (a[i] < v) {
@@ -48,4 +51,24 @@ public class ThreeWayQuickSort {
         a[i] = a[j];
         a[j] = t;
     }
+
+    // 这里可以直接对值为v的元素聚集在合适的位置
+    private static void gatherV(int[] a, int lo, int hi, int v) {
+        // 能对数组进行调整，使得值小于v的在前面部分，大于v的在后面部分。等于v的聚集在一起.
+        if (lo >= hi) {
+            return;
+        }
+        int lt = lo, i = lo, gt = hi;
+        // 这里的v是一个pivot值！！！
+        while (i <= gt) {
+            if (a[i] < v) {
+                swap(a, i++, lt++);
+            } else if (a[i] > v) {
+                swap(a, i, gt--);
+            } else {
+                i++;
+            }
+        }
+    }
+
 }

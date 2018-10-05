@@ -18,12 +18,14 @@ public class WiggleSortII {
 
     // 2. 利用随机选择算法，得到整个数组中最中间的那个数组，并同时划分数组，即前一半数字均小于等于median,后一半数字均大于等于median
     // 利用三向快速排序算法，把所有median的值集中到一起,
+    // 时间复杂度O(N)
     public void wiggleSort2(int[] nums) {
         int n = nums.length, m = (n + 1) >> 1;
         int[] copy = Arrays.copyOf(nums, n);
         // 得到median，并划分数组
         int median = kthSmallestNumber(nums, m);
         // 将所有等于median的值，聚集在一起！
+        // 三向快速排序的变体！！！
         for (int i = 0, j = 0, k = n - 1; j <= k; ) {
             if (copy[j] < median) {
                 swap(copy, i++, j++);
