@@ -42,6 +42,7 @@ public class RandomSelect {
         nums[lo] = val;
 
         while (lo < hi) {
+            // 快速排序都是lo<hi!
             while (lo < hi && nums[hi] >= val) {
                 hi--;
             }
@@ -58,7 +59,11 @@ public class RandomSelect {
 
     // 降序
     static int divide2(int[] nums, int lo, int hi) {
-        int val = nums[lo];
+        Random random = new Random();
+        int pivotIdx = lo + Math.abs(random.nextInt() % (hi - lo + 1));
+        int val = nums[pivotIdx];
+        nums[pivotIdx] = nums[lo];
+        nums[lo] = val;
         while (lo < hi) {
             while (lo < hi && nums[hi] <= val) {
                 hi--;

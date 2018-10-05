@@ -32,4 +32,38 @@ public class PartitionList {
             return biggerEqualHead;
         }
     }
+
+
+    public ListNode oddEvenList(ListNode head) {
+        if (head == null || head.next == null || head.next.next == null) return head;
+
+        // 从第三个节点开始
+        ListNode oddHead = head;
+        ListNode oddTail = head;
+        ListNode evenHead = head.next;
+        ListNode evenTail = head.next;
+        ListNode tmp = head.next.next;
+        int no = 2;
+        while (tmp != null) {
+            no++;
+            ListNode next = tmp.next;
+            if (no % 2 == 0) {
+                // 第偶数个节点
+                evenTail.next = tmp;
+                evenTail = evenTail.next;
+            } else {
+                oddTail.next = tmp;
+                oddTail = oddTail.next;
+            }
+            tmp = next;
+        }
+        evenTail.next = null;
+        oddTail.next = evenHead;
+        return oddHead;
+    }
 }
+
+
+
+
+

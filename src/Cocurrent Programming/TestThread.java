@@ -22,10 +22,6 @@ public class TestThread {
         TimeUnit.SECONDS.sleep(1);
         System.out.println("Cost: " + TestThread.end() + " mills");
         ExecutorService poolExecutor = Executors.newFixedThreadPool(1);
-
-
-
-
     }
 
 }

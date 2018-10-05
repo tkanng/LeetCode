@@ -45,7 +45,6 @@ public class BiSearch {
         return -1;
     }
 
-
     //递归写法
     public static int getFirstK(int[] array, int k, int start, int end) {
         if (start > end) {
@@ -112,7 +111,7 @@ public class BiSearch {
         // 在不存在k的数组中，寻找<k的最大数字的下标值。
         int low = start;
         int high = end;
-        if (k > nums[high]) return high + 1;
+        if (k > nums[high]) return high; //
         if (k < nums[0]) return -1; // 当前k小于数组的最小值
         while (low <= high) {
             int mid = (low + high) / 2;

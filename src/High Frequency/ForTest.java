@@ -18,6 +18,8 @@ public class ForTest {
         new ForTest().foo3(i);
         System.out.println(i);
 
+        System.out.println("A".compareTo("B"));
+
 
     }
 
@@ -33,4 +35,7 @@ public class ForTest {
     void foo3(Integer i){
         i=100;
     }
+
+
+
 }

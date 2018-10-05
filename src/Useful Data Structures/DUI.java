@@ -18,6 +18,9 @@ public class DUI {
         System.out.println("-----------------------------");
         // 自定义的比较器，可以让我们自由定义比较的顺序 Comparator<Integer> cmp;
         Comparator cmp = new Comparator<Integer>() {
+            // 返回值为正，会调转顺序
+            // e1,e2 (e1<e2)
+            // e2 - e1 为正,会调转顺序,====> e2, e1
             public int compare(Integer e1, Integer e2) {
                 return e2 - e1;
             }
