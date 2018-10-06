@@ -39,26 +39,47 @@ public class SearchInRotateArray {
         else return Bisearch(nums, mid + 1, hi, target);
     }
 
-    public static int minIdx(int[] nums) {
-        if (nums.length == 1) return 0;
-        if (nums[0] < nums[nums.length - 1])
-            // 对于递增序列
-            return 0;
-        if (nums[nums.length - 1] < nums[nums.length - 2])
-            return nums.length - 1; // 最小元素是最后一个元素的情况
+    /*
+        public static int minIdx(int[] nums) {
+            if (nums.length == 1) return 0;
+            if (nums[0] < nums[nums.length - 1])
+                // 对于递增序列
+                return 0;
+            if (nums[nums.length - 1] < nums[nums.length - 2])
+                return nums.length - 1; // 最小元素是最后一个元素的情况
 
+            int lo = 0;
+            int hi = nums.length - 1;
+            int mid = (lo + hi) / 2;
+            while (lo < hi) {
+                mid = lo + (hi - lo) / 2; // 防止溢出
+                if (mid == lo) {
+                    return nums[lo] < nums[hi] ? lo : hi;
+                }
+                if (nums[lo] >= nums[mid]) {
+                    hi = mid;
+                } else {
+                    lo = mid;
+                }
+            }
+            return lo;
+        }
+    */
+    public static int minIdx(int[] nums) {
+        // 也适用于含有重复元素的数组
+        if (nums == null || nums.length == 0)
+            return -1;
         int lo = 0;
         int hi = nums.length - 1;
-        int mid = (lo + hi) / 2;
-        while (lo < hi) {
-            mid = lo + (hi-lo) / 2; // 防止溢出
-            if (mid == lo) {
-                return nums[lo] < nums[hi] ? lo : hi;
-            }
-            if (nums[lo] >= nums[mid]) {
+        int mid = 0;
+        while (lo <= hi) {
+            mid = lo + (hi - lo) / 2;
+            if (nums[mid] > nums[hi]) {
+                lo = mid + 1;
+            } else if (nums[mid] < nums[hi]) {
                 hi = mid;
-            } else {
-                lo = mid;
+            } else { // when num[mid] and num[hi] are same
+                hi--;
             }
         }
         return lo;

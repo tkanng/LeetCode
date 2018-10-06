@@ -121,5 +121,4 @@ public class BiSearch {
         //  如果没有找到,那么low > high
         return high;
     }
-
 }

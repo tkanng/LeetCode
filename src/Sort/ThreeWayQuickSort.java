@@ -10,13 +10,13 @@ public class ThreeWayQuickSort {
 
     public static void main(String[] args) {
         int[] a = {3, 9, 0, 6, 8, 2, 1, 7, 4, 4, 3, 3, 3, 3, 3, 3};
-        System.out.println(Arrays.toString(a));
-        gatherV(a, 0, a.length - 1, 5);
-        System.out.println(Arrays.toString(a));
+//        System.out.println(Arrays.toString(a));
+//        gatherV(a, 0, a.length - 1, 5);
+//        System.out.println(Arrays.toString(a));
 
-//        System.out.println(Arrays.toString(a));
-//        ThreeWayQuickSort.sort(a);
-//        System.out.println(Arrays.toString(a));
+        System.out.println(Arrays.toString(a));
+        ThreeWayQuickSort.sort(a);
+        System.out.println(Arrays.toString(a));
     }
 
     public static void sort(int[] a) {
@@ -42,6 +42,10 @@ public class ThreeWayQuickSort {
                 i++;
             }
         }
+
+        // 经过一次遍历后[lt, i-1]值都相同,都为a[lo]
+        System.out.println(Arrays.toString(a));
+        System.out.println("lt: " + lt + "i:" + i);
         sort(a, lo, lt - 1);
         sort(a, gt + 1, hi);
     }
