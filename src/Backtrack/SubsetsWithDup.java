@@ -6,7 +6,6 @@ public class SubsetsWithDup {
 
     public static void main(String[] args) {
 
-
         System.out.println(new SubsetsWithDup().subsetsWithDup2(new int[]{1,2,2}));
 
     }

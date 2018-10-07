@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class FindMedianInTwoSortedArrays {
 
     // 讲解视频：https://www.youtube.com/watch?v=KB9IcSCDQ9k
@@ -11,6 +13,7 @@ public class FindMedianInTwoSortedArrays {
     應該是說要盡量選到nums1[m1]>nums2[m2-1]，然後nums1[m1]越小越好的。
     不知道理解的對不對﻿
      */
+
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         int n1 = nums1.length;
         int n2 = nums2.length;
@@ -37,4 +40,9 @@ public class FindMedianInTwoSortedArrays {
                 m2 >= n2 ? Integer.MAX_VALUE : nums2[m2]);
         return (c1 + c2) * 0.5;
     }
+
+
+    // 找两个有序数组中的第k小的元素,请看左程云的书
+
+
 }
