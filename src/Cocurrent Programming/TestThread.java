@@ -1,4 +1,4 @@
-import java.util.concurrent.TimeUnit;
+import java.util.concurrent.*;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class TestThread {
@@ -21,6 +21,7 @@ public class TestThread {
         TestThread.begin();
         TimeUnit.SECONDS.sleep(1);
         System.out.println("Cost: " + TestThread.end() + " mills");
+        ExecutorService poolExecutor = Executors.newFixedThreadPool(1);
     }
 
 }

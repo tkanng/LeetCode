@@ -29,6 +29,7 @@ public class WildcardMatching {
             }
         } else {
             if (pattern.charAt(j) == '*') {
+                // 利用'*'来匹配字符串与不利用'*'来匹配字符串
                 ans = dp(i + 1, j, text, pattern) || dp(i, j + 1, text, pattern);
             } else {
                 ans = (text.charAt(i) == pattern.charAt(j) || pattern.charAt(j) == '?') && dp(i + 1, j + 1, text, pattern);

@@ -249,14 +249,7 @@ public class test {
     }
 
 
-    public static class ListNode {
-        int val;
-        ListNode next = null;
 
-        ListNode(int val) {
-            this.val = val;
-        }
-    }
 
 
     public static ListNode deleteDuplication(ListNode pHead) {
@@ -339,17 +332,7 @@ public class test {
         }
     }
 
-    public class TreeNode {
-        int val = 0;
-        TreeNode left = null;
-        TreeNode right = null;
 
-        public TreeNode(int val) {
-            this.val = val;
-
-        }
-
-    }
 
     public ArrayList<ArrayList<Integer>> Print(TreeNode pRoot) {
         ArrayList<ArrayList<Integer>> result = new ArrayList<>();
@@ -584,33 +567,7 @@ public class test {
     }
 
 
-    /**
-     * @param n
-     * @param x [1,9]
-     * @return
-     */
-    public int NumberOfXBetween1AndN_Solution(int n, int x) {
-        if (n < 0 || x < 1 || x > 9)
-            return 0;
-        int high, low, curr, tmp, i = 1;
-        high = n;
-        int total = 0;
-        while (high != 0) {
-            high = n / (int) Math.pow(10, i);// 获取第i位的高位
-            tmp = n % (int) Math.pow(10, i);
-            curr = tmp / (int) Math.pow(10, i - 1);// 获取第i位
-            low = tmp % (int) Math.pow(10, i - 1);// 获取第i位的低位
-            if (curr == x) {
-                total += high * (int) Math.pow(10, i - 1) + low + 1;
-            } else if (curr < x) {
-                total += high * (int) Math.pow(10, i - 1);
-            } else {
-                total += (high + 1) * (int) Math.pow(10, i - 1);
-            }
-            i++;
-        }
-        return total;
-    }
+
 
 
     public static int RectCover(int target) {
@@ -745,25 +702,7 @@ public class test {
         res.add(node.val);
     }
 
-    //  反转链表
-    public ListNode ReverseList(ListNode first) {
-        if (first == null) // 链表为空
-            return null;
-        ListNode p = first;
-        ListNode q = first.next;
-        p.next = null;
-        if (q == null) // 链表只有一个元素
-            return p;
-        while (q.next != null) {
-            ListNode r = q.next;
-            q.next = p;
-            p = q;
-            q = r;
-        }
-        // q 是最后一个节点，p是倒数第二个节点
-        q.next = p;
-        return q;
-    }
+
 
 
     // 树的子结构

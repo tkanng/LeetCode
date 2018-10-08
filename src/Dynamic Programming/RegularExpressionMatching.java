@@ -19,9 +19,9 @@ public class RegularExpressionMatching {
 
     */
     public boolean isMatch(String text, String pattern) {
-        // 处理输入为空的情况
+        // 处理pattern为空的情况
         if (pattern.isEmpty()) return text.isEmpty();
-        // 处理输入为空的情况
+        // 处理text为空的情况
         if (text.isEmpty()) {
             if (pattern.length() % 2 != 0) {
                 return false;
@@ -34,7 +34,7 @@ public class RegularExpressionMatching {
             return true;
         }
         boolean first_match = (pattern.charAt(0) == text.charAt(0) || pattern.charAt(0) == '.');
-
+        // 先判断pattern的长度，然后判断第二个字符是否等于'*'
         if (pattern.length() >= 2 && pattern.charAt(1) == '*') {
             return (isMatch(text, pattern.substring(2)) ||
                     (first_match && isMatch(text.substring(1), pattern)));

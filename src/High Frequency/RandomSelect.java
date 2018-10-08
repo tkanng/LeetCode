@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.Random;
 
 public class RandomSelect {
 
@@ -6,8 +7,8 @@ public class RandomSelect {
     // 第k大 使用 divide2
     // 第k小 使用 divide1
     public static void main(String[] args) {
-        int []  nums = new int[]{4,3,1,11,3213,1231,32,84938,439,439,4398};
-        System.out.println(randomSelect(nums, 6));
+        int[] nums = new int[]{4, 3, 1, 11, 3213, 1231, 32, 84938, 439, 439, 4398};
+        System.out.println(randomSelect(nums, 7));
         System.out.println(Arrays.toString(nums));
     }
 
@@ -17,7 +18,7 @@ public class RandomSelect {
     }
 
     static int randomSelect(int[] nums, int lo, int hi, int K) {
-        int pos = divide2(nums, lo, hi);// 这里可能需要优化，随机操作一下！
+        int pos = divide1(nums, lo, hi);// 这里可能需要优化，随机操作一下！
         int eleCount = pos - lo + 1;
         if (eleCount == K)
             return nums[pos];
@@ -33,8 +34,15 @@ public class RandomSelect {
     // 返回nums[lo]应该插入的坐标
     // 升序
     static int divide1(int[] nums, int lo, int hi) {
-        int val = nums[lo];
+        // 随机化操作！！
+        Random random = new Random();
+        int pivotIdx = lo + Math.abs(random.nextInt() % (hi - lo + 1));
+        int val = nums[pivotIdx];
+        nums[pivotIdx] = nums[lo];
+        nums[lo] = val;
+
         while (lo < hi) {
+            // 快速排序都是lo<hi!
             while (lo < hi && nums[hi] >= val) {
                 hi--;
             }
@@ -48,9 +56,14 @@ public class RandomSelect {
         nums[lo] = val;
         return lo;
     }
+
     // 降序
     static int divide2(int[] nums, int lo, int hi) {
-        int val = nums[lo];
+        Random random = new Random();
+        int pivotIdx = lo + Math.abs(random.nextInt() % (hi - lo + 1));
+        int val = nums[pivotIdx];
+        nums[pivotIdx] = nums[lo];
+        nums[lo] = val;
         while (lo < hi) {
             while (lo < hi && nums[hi] <= val) {
                 hi--;

@@ -14,8 +14,12 @@
       <sourceFolder url="file://$MODULE_DIR$/src/Backtrack" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Array Problems" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/Stack Problems" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Divide and Conquer" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Two Pointers" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Linked List Problem" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/Sort" isTestSource="false" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
 </module>

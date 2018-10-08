@@ -1,32 +1,38 @@
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class SerializeDeserialize {
     // 可以结合KMP做一些，骚东西
-    public int index = -1;
-    String Serialize(TreeNode root) {
-        StringBuffer sb = new StringBuffer();
+
+    public String Serialize(TreeNode root) {
+        String res = "";
         if (root == null) {
-            sb.append("#,");
-            return sb.toString();
+            return "#!";
         }
-        sb.append(root.val + ",");
-        sb.append(Serialize(root.left));
-        sb.append(Serialize(root.right));
-        return sb.toString();
+        res += root.val + "!";
+        res += Serialize(root.left);
+        res += Serialize(root.right);
+        return res;
     }
 
-    TreeNode Deserialize(String str) {
-        index++;
-        int len = str.length();
-        if (index >= len) {
+    public TreeNode Deserialize(String str) {
+        Queue<String> queue = new LinkedList<String>();
+        String[] strings = str.split("!");
+        queue.addAll(Arrays.asList(strings));
+        return DeserializeCore(queue);
+    }
+
+    public TreeNode DeserializeCore(Queue<String> strings) {
+        if (strings.isEmpty()) return null;
+        String s = strings.poll();
+        if (s.equals("#"))
             return null;
-        }
-        String[] strr = str.split(",");
-        TreeNode node = null;
-        if (!strr[index].equals("#")) {
-            node = new TreeNode(Integer.valueOf(strr[index]));
-            node.left = Deserialize(str);
-            node.right = Deserialize(str);
-        }
-
-        return node;
+        TreeNode root = new TreeNode(Integer.parseInt(s));
+        root.left = DeserializeCore(strings);
+        root.right = DeserializeCore(strings);
+        return root;
     }
+
+
 }

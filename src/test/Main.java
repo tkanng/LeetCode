@@ -327,15 +327,15 @@
 
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Scanner;
 
+// 度小满笔试第一题 求得所有边两侧权值不同的节点对
 public class Main {
 
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
-        if(n<=1) {
+        if (n <= 1) {
             System.out.println("");
             return;
         }
@@ -351,27 +351,23 @@ public class Main {
                 map2.put(nums[i], 1);
             }
         }
-
-        int pre =0;
+        int pre = 0;
         int curr = 0;
         StringBuffer sb = new StringBuffer();
         if (n >= 2) {
             map1.put(nums[0], map1.get(nums[0]) + 1);
             map2.put(nums[0], map2.get(nums[0]) - 1);
-            pre= n - 1 - map2.get(nums[0]);
+            pre = n - 1 - map2.get(nums[0]);
             sb.append(pre).append(" ");
         }
-
         for (int k = 1; k < n - 1; ++k) {
             map1.put(nums[k], map1.get(nums[k]) + 1);
             map2.put(nums[k], map2.get(nums[k]) - 1);
-            curr = pre - (k+1 - map1.get(nums[k])) + (n -1- k - map2.get(nums[k]));
+            curr = pre - (k + 1 - map1.get(nums[k])) + (n - 1 - k - map2.get(nums[k]));
             sb.append(curr).append(" ");
             pre = curr;
         }
-
         System.out.println(sb.toString().trim());
-
     }
 }
 

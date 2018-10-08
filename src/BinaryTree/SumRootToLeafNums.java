@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class SumRootToLeafNums {
 
-    static int res = 0;
+    int res = 0;
 
 
     public static void main(String[] args) {
@@ -14,10 +14,11 @@ public class SumRootToLeafNums {
         root.left.right = new TreeNode(1);
 
 
-        System.out.println(sumNumbers(root));
+        System.out.println(new SumRootToLeafNums().sumNumbers(root));
 
     }
-    public static int sumNumbers(TreeNode root) {
+
+    public int sumNumbers(TreeNode root) {
 
         if (root == null) return res;
 
@@ -28,7 +29,7 @@ public class SumRootToLeafNums {
     }
 
 
-    public static void tranverse(TreeNode node, ArrayList<Integer> paths) {
+    public void tranverse(TreeNode node, ArrayList<Integer> paths) {
         if (node == null) return;
         if (node.left == null && node.right == null) {
             int tmp = 0;
@@ -37,7 +38,7 @@ public class SumRootToLeafNums {
                 tmp = tmp * 10 + paths.get(i);
             }
             res += tmp;
-            paths.remove(paths.size()-1);
+            paths.remove(paths.size() - 1);
             return;
         }
         paths.add(node.val);

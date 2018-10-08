@@ -4,6 +4,13 @@ import java.util.List;
 
 public class SubsetsWithDup {
 
+    public static void main(String[] args) {
+
+        System.out.println(new SubsetsWithDup().subsetsWithDup2(new int[]{1,2,2}));
+
+    }
+
+
     public List<List<Integer>> subsetsWithDup(int[] nums) {
         Arrays.sort(nums);
         List<List<Integer>> result = new ArrayList<List<Integer>>();
