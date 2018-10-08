@@ -5,7 +5,10 @@ public class KMP {
     public static void main(String[] args) {
         System.out.println(KMPMatch("", "pattern"));
         System.out.println(Arrays.toString(getNext("aacaacbbcbadaabcacbd")));
-        System.out.println(KMPAllMatch("pppppppppppppppp", "p"));
+        System.out.println(KMPAllMatch("ttta", "tt"));
+
+
+        System.out.println(Arrays.toString(getNext("pzgxpai")));
     }
 
     public static int[] getNext(String ps) {

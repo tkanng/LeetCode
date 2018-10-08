@@ -1,16 +1,11 @@
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.*;
 
 public class ForTest {
 
 
     public static void main(String[] args) {
-        int[] a = new int[]{4, 3, 2, 1};
 
-        Arrays.sort(a, 0, 2);
-        System.out.println(Arrays.toString(a));
+        ArrayDeque
 
     }
 
