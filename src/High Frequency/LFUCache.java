@@ -63,7 +63,7 @@ public class LFUCache {
     int min = 0;
     HashMap<Integer, Integer> vals = new HashMap<>();
     HashMap<Integer, Integer> counts = new HashMap<>();
-    HashMap<Integer, LinkedHashSet<Integer>> countToKey = new HashMap<>();
+    HashMap<Integer, LinkedHashSet<Object>> countToKey = new HashMap<Integer, LinkedHashSet<Object>>();
     int cap = -1;
 
     public LFUCache(int cap) {
@@ -118,7 +118,7 @@ public class LFUCache {
             get(key);
         } else {
             if (vals.size() >= cap) {
-                int deleteKey = countToKey.get(min).iterator().next();
+                Object deleteKey = countToKey.get(min).iterator().next();
                 vals.remove(deleteKey);
                 counts.remove(deleteKey);
                 countToKey.get(min).remove(deleteKey);

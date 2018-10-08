@@ -171,7 +171,7 @@ public class test {
                 rightIdx--;
             }
         }
-        // 记得排序！
+        // 记得排序！[left, right+1)
         Arrays.sort(arr, left, right + 1);
 
         return leftCount + rightCount + mergeCount;
@@ -247,9 +247,6 @@ public class test {
         }
         return result;
     }
-
-
-
 
 
     public static ListNode deleteDuplication(ListNode pHead) {
@@ -331,7 +328,6 @@ public class test {
             return null;
         }
     }
-
 
 
     public ArrayList<ArrayList<Integer>> Print(TreeNode pRoot) {
@@ -508,6 +504,7 @@ public class test {
             visited[x][y] = true;
             return hasPath(allChars, visited, new Point(x - 1, y), str.substring(1)) || hasPath(allChars, visited, new Point(x + 1, y), str.substring(1)) || hasPath(allChars, visited, new Point(x, y - 1), str.substring(1)) || hasPath(allChars, visited, new Point(x, y + 1), str.substring(1));
         } else {
+            visited[x][y] = false;
             return false;
         }
     }
@@ -565,9 +562,6 @@ public class test {
         }
         return result;
     }
-
-
-
 
 
     public static int RectCover(int target) {
@@ -701,8 +695,6 @@ public class test {
         printListFromTailToHead(node.next, res);
         res.add(node.val);
     }
-
-
 
 
     // 树的子结构
