@@ -1,22 +1,29 @@
-
-
+import java.util.Arrays;
 
 public class BiSearch {
 
 
     public static void main(String[] args) {
 
-        int[] a = new int[]{2, 5, 6, 0, 0, 0, 0, 0, 0, 0, 0};
+        int[] a = new int[]{2, 5, 6, 6, 0, 0, 0, 0, 0, 0, 0, 0};
 
+        Arrays.sort(a);
         System.out.println(biSearch2(a, 0, 0, a.length - 1));
 
         System.out.println(getFirstK(a, 6, 3, 3));
 
         System.out.println(getLastK(a, 6, 0, a.length - 1));
 
-        System.out.println(getFirstBiggerThanK(a, 4, 0, 3 - 1));
+
         System.out.println(getFirstEqualOrBigger(a, 5, 0, a.length - 1));
         System.out.println(getLargestNumSmallerThanK(a, 4, 0, a.length - 1));
+
+        System.out.println(getLargestNumSmallerThanK(a, 6, 0, a.length - 1));
+
+        int[] res = getFirstKRelatedInfo(a, 7, 0, a.length - 1);
+        System.out.println(Arrays.toString(res));
+        System.out.println(Arrays.toString(a));
+
 
     }
 
@@ -89,6 +96,7 @@ public class BiSearch {
         return getFirstBiggerThanK(array, k, 0, array.length - 1);
     }
 
+
     public static int getFirstBiggerThanK(int[] array, int k, int start, int end) {
         // array升序排列
         int lo = start;
@@ -112,7 +120,7 @@ public class BiSearch {
         int low = start;
         int high = end;
         if (k > nums[high]) return high; //
-        if (k < nums[0]) return -1; // 当前k小于数组的最小值
+        if (k <= nums[start]) return -1; // 当前k小于数组的最小值
         while (low <= high) {
             int mid = (low + high) / 2;
             if (nums[mid] < k) low = mid + 1;
@@ -121,4 +129,35 @@ public class BiSearch {
         //  如果没有找到,那么low > high
         return high;
     }
+
+    //递归写法
+    public static int[] getFirstKRelatedInfo(int[] array, int k, int start, int end) {
+        if (start > end) {
+            int[] res = new int[4];
+            res[0] = -1; // 在array中没有找到k
+            res[1] = (start + end) / 2;
+            res[2] = start;// 搜索k，start的最后结果
+            res[3] = end; // end的最后结果
+            return res;
+        }
+        int mid = (start + end) >> 1;
+        if (array[mid] > k) {
+            return getFirstKRelatedInfo(array, k, start, mid - 1);
+        } else if (array[mid] < k) {
+            return getFirstKRelatedInfo(array, k, mid + 1, end);
+            // 下面的判断语句，说明array[mid] == k;
+        } else if (mid - 1 >= start && array[mid - 1] == k) {
+            // 如果mid==start，直接返回.mid > start, 且array[mid-1] == k，说明在[start, mid-1]中
+            return getFirstKRelatedInfo(array, k, start, mid - 1);
+        } else {
+            // mid == start 或者 array[mid-1] != k;
+            int[] res = new int[4];
+            res[0] = 0; // 在array中找到k
+            res[1] = mid;
+            res[2] = start; // start的最后结果
+            res[3] = end; // end 的最后结果
+            return res;
+        }
+    }
+
 }

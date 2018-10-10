@@ -1,11 +1,8 @@
-import java.util.*;
-
 public class ForTest {
 
 
     public static void main(String[] args) {
 
-        ArrayDeque
 
     }
 

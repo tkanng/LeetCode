@@ -6,7 +6,6 @@ public class FindKthSmallestNumInTwoSortedArray {
         int offset = 0;
         while (s1 < e1) {
             mid1 = (s1 + e1) / 2;
-
             mid2 = (s2 + e2) / 2;
             offset = ((e1 - s1 + 1) & 1) ^ 1;
             if (a1[mid1] > a2[mid2]) {

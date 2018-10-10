@@ -9,12 +9,10 @@ public class Combinations {
         Subsets s = new Subsets();
         System.out.println(s.subsets(new int[] { 1,2,3}));
 
-
         // 下面只是由Subsets变换过来的！
         System.out.println(combine(7,3).size()); // 不可重复使用数字的到的组合
         System.out.println(combine2(4, 3).size()); // 可重复使用数字得到的组合！
         System.out.println(combine3(4, 3));// 可重复使用数字得到的排列！
-
     }
 
     // 找到1到n中，能构成的所有大小为k的数组（不可重复使用数字）
@@ -56,7 +54,7 @@ public class Combinations {
         } else {
             for (int i = start; i < n + 1; i++) {
                 tempList.add(i);
-                backtrack2(list, tempList, n, k, i);
+                backtrack2(list, tempList, n, k, i);  // 能重复使用数字，则为i，不是i+1!!!!
                 tempList.remove(tempList.size() - 1);
             }
         }

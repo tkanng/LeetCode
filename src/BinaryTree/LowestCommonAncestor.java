@@ -16,6 +16,11 @@ public class LowestCommonAncestor {
     // 如果只碰到B，就返回B
     // 如果都没有，就返回null
 
+    // 如果是多叉树的话，需要在divide阶段对root的每个子节点做调用
+    // Conquer阶段，对Divide阶段得到的结果做处理,
+    // 如果root子节点中找到了两个不是null的结果，返回root
+    // 如果只有一个子节点调用结果不是null，返回该节点
+    // 如果子节点调用结果全是null,返回null
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode node1, TreeNode node2) {
         if(root == null || root == node1 || root == node2){
             return root;

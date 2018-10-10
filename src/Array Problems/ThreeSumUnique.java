@@ -5,6 +5,7 @@ import java.util.List;
 public class ThreeSumUnique {
 
     public List<List<Integer>> threeSum(int[] num) {
+        // 3sum 为0
         Arrays.sort(num);
         List<List<Integer>> res = new LinkedList<>();
         for (int i = 0; i < num.length - 2; i++) {

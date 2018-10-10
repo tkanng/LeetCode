@@ -80,6 +80,7 @@ public class LongestIncreasingSubsequence {
         return maxLen;
     }
 
+    // getLastK函数变体，可以实现这个功能.
     public int getEqualOrFirstBiggerThan(int[] nums, int k, int lo, int hi) {
         // nums是单调递增的，所以数组中不会存在相同的元素
         if (nums[lo] >= k) return lo;
