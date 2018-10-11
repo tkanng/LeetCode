@@ -1,11 +1,19 @@
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class ForTest {
 
 
     public static void main(String[] args) {
 
 
+        ExecutorService  t = Executors.newFixedThreadPool(1);
+
     }
 
+    class MyThread extends Thread{
+
+    }
     // chars = new char [] {'0', ' ', '2'};
     void foo(char[] chars) {
         chars[1] = '1';  // chars变为{'0','1','2'}

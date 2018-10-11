@@ -25,7 +25,7 @@ public class MergeIntervals {
         Collections.sort(intervals, new Comparator<Interval>() {
             @Override
             public int compare(Interval o1, Interval o2) {
-                return o1.start - o2.start;// 按照start升序排列
+                return o1.start - o2.start;// 按照start升序排列.小于0的话，o1和o2的相对位置不变.
             }
         });
         if (intervals.size() == 0)
